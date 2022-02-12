@@ -21,7 +21,7 @@ export default function Course(){
                     <th>Lab</th>
                     <th>Tutorial</th>
                     <th>Mid-term</th>
-                    <th>Final</th>
+                    <th>Final Exam</th>
                   </tr>
                   <tr>
                     <td>XX</td>

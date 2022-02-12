@@ -5,7 +5,7 @@ import Course from './course'
 function App() {
   const [data,setData]=useState(null);
   const [print,setPrint]=useState(false);
-
+ 
   function getData(val)
   {
     setData(val.target.value);
