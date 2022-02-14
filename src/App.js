@@ -1,22 +1,29 @@
 import "./App.css";
 import React from "react";
+import Nav from "./Nav";
 import Home from "./Home";
 import Main from "./Main";
 import InputPage from "./InputPage";
-import { Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
+      <Nav />
       <header className="App-header">
-        <h1>Welcome to my React project!</h1>
+        <h1>Welcome to the GPA Tracker!</h1>
         <button>Sign In Here</button>
       </header>
-
-      //<Route exact path="/" component={Home} />
-      //<Route exact path="/Main" component={Main} />
-      //<Route exact path="/InputPage" component={InputPage} />
-
+      <h3 className="App-text">
+        This Web App is a simple tool that can help students keep track of GPAs
+        by calculating the distribution of grades.
+      </h3>
+      <b>Have fun!</b>
+      
+      {/*<Route path="/" component={Home} />
+      <Route path="/Main" component={Main} />
+      <Route path="/InputPage" component={InputPage} />
+  */}
     </div>
   );
 }

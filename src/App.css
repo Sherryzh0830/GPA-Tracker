@@ -23,6 +23,10 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.App-text{
+  background-color: #4ecef55d;
+  
+}
 
 .App-link {
   color: #61dafb;
@@ -35,4 +39,21 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+nav{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10vh;
+  background: rgb(99, 98, 98);
+  color: white;
+}
+
+.nav-links{
+  width:50%;
+  display:flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
 }
