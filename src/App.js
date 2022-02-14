@@ -1,52 +1,22 @@
-import './App.css';
-import React, {useState} from 'react';
-import Course from './course'
+import "./App.css";
+import React from "react";
+import Home from "./Home";
+import Main from "./Main";
+import InputPage from "./InputPage";
+import { Route, Link } from "react-router-dom";
 
 function App() {
-  const [data,setData]=useState(null);
-  const [print,setPrint]=useState(false);
- 
-  function getData(val)
-  {
-    setData(val.target.value);
-    setPrint(false)
-  };
   return (
     <div className="App">
-      {
-        print?
-        <h2>{data}</h2>
-        :null
-      }
       <header className="App-header">
-        <h1>
-          Welcome to my React project!
-        </h1>
+        <h1>Welcome to my React project!</h1>
         <button>Sign In Here</button>
-        </header>
-        <Course/>
-        <p>Enter course name here:</p>
-        <input type="text" onChange={getData} style={
-          {borderWidth: 1,
-            borderColor: 'white',
-            padding:6,
-            width:200}
-        }>
-        </input>
-        <button onClick={()=>setPrint(true)}style={{margin:10}}>
-          Confirm</button>
+      </header>
 
-        <p>Enter course number here:</p>
-        <input type="text" onChange={getData} style={
-          {borderWidth: 1,
-            borderColor: 'white',
-            padding:6,
-            width:200}
-        }>
-        </input>
-        <button onClick={()=>setPrint(true)}style={{margin:10}}>
-          Confirm</button>
-      
+      //<Route exact path="/" component={Home} />
+      //<Route exact path="/Main" component={Main} />
+      //<Route exact path="/InputPage" component={InputPage} />
+
     </div>
   );
 }
