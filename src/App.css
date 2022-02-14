@@ -46,8 +46,9 @@ nav{
   justify-content: space-around;
   align-items: center;
   min-height: 10vh;
-  background: rgb(99, 98, 98);
-  color: white;
+  background: #4ECDC4;
+  color: black;
+  font-family: "Gill Sans", sans-serif;
 }
 
 .nav-links{
