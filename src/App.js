@@ -1,20 +1,23 @@
 import "./App.css";
 import React from "react";
 import Nav from "./Nav";
-import Home from "./Home";
-import Main from "./Main";
-import InputPage from "./InputPage";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Home from "./element/Home";
+import Main from "./element/Main";
+import InputPage from "./element/InputPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-      <div className="App">
-        <Nav />
-        <Home />
-        <Main />
-        <InputPage />
-
-      </div>
+    <div className="App">
+      <Nav />
+      <BrowserRouter>
+      <Routes>
+        <Route path="/" element={Home}></Route>
+        <Route path="/main" element={Main}></Route>
+        <Route path="/inputpage" element={InputPage}></Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 

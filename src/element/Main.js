@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import Course from "./course";
+import React from "react";
+import Course from "../course";
 
 export default function Main() {
   return (
