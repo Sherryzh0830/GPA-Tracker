@@ -1,0 +1,22 @@
+[
+    {
+        "id":1,
+        "component":"Problem Set",
+        "weight":30,
+        "grade":80
+    },
+
+    {
+        "id":2,
+        "component":"Quiz",
+        "weight":40,
+        "grade":75
+    },
+
+    {
+        "id":3,
+        "component":"Lab",
+        "weight":30,
+        "grade":66
+    }
+]
