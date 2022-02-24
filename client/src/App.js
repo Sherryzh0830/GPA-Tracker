@@ -9,14 +9,12 @@ import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
       <Nav />
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/Main' element={<Main />} />
             <Route path='/InputPage' element={<InputPage />}></Route>
           </Routes>
-      </BrowserRouter>
     </div>
   );
 }
