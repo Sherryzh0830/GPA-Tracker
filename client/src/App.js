@@ -15,6 +15,7 @@ function App() {
             <Route path='/Main' element={<Main />} />
             <Route path='/InputPage' element={<InputPage />}></Route>
           </Routes>
+
     </div>
   );
 }

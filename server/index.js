@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(cors());
 
 mongoose.connect(
-  "mongodb+srv://MyAdmin:0830@cluster0.q9ydu.mongodb.net/GPATracker?retryWrites=true&w=majority"
+  "mongodb+srv://MyAdmin:0830@cluster0.q9ydu.mongodb.net/MajorEvent?retryWrites=true&w=majority"
 );
 
 app.get("/getEvent", (req, res) => {
