@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Axios from "axios";
+import "./course.css";
+
 
 export default function Home() {
   const [ListofEvent, setListofEvent] = useState([]);
@@ -21,6 +23,29 @@ export default function Home() {
         by calculating the distribution of grades.
       </h3>
       <b>Have fun!</b>
+      
+      <div>
+      <table className="table">
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Weight</th>
+          <th>Grade</th>
+        </tr>
+      </thead>
+      <tbody>
+      {ListofEvent.map((val) => (
+          <div>
+          <tr>
+          <td>{val.component}</td>
+          <td>{val.weight}</td>
+          <td>{val.grade}</td>
+        </tr>
+        </div>
+      ))}
+      </tbody>
+      </table>
+      </div>
 
       {ListofEvent.map((val) => {
         return (
@@ -28,6 +53,24 @@ export default function Home() {
             <div>Component:{val.component}</div>
             <div>Weight:{val.weight}</div>
             <div>Grade:{val.grade}</div>
+
+            <table className="table">
+            <thead>
+              <tr>
+                <th>Component</th>
+                <th>Weight</th>
+                <th>Grade</th>
+              </tr>
+            </thead>
+            <tbody>
+                  <tr>
+                    <td>{val.component}</td>
+                    <td>{val.weight}</td>
+                    <td>{val.grade}</td>
+                  </tr>
+                
+              </tbody>
+        </table>
           </div>
         );
       })}

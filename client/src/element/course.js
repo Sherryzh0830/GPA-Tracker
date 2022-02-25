@@ -1,7 +1,6 @@
 import "./course.css";
 import React, { useState } from "react";
 import data from "./data.json";
-import { nanoid } from "nanoid";
 
 export default function Course() {
   const courseInfo = [
@@ -12,32 +11,9 @@ export default function Course() {
 
   const [components, setComponents] = useState(data);
 
-  const [addFormData, setAddFormData] = useState({
-    component: "",
-    weight: 0,
-    grade: 0,
-  });
 
-  const handleAddFormChange = (event) => {
-    event.preventDefult();
-    const fieldName = event.target.attribute("name");
-    const fieldValue = event.target.value;
-    const newFormData = { ...addFormData };
-    newFormData[fieldName] = fieldValue;
-    setAddFormData(newFormData);
-  };
-
-  const handleAddFormSubmit = (event) => {
-    event.preventDefult();
-    const newComponent = {
-      id: nanoid(),
-      component: addFormData.component,
-      weight: addFormData.weight,
-      grade: addFormData.grade,
-    };
-  const newComponents = [...components, newComponent];
-    setComponents(newComponents);
-  };
+  
+  
 
   return (
     <div>
@@ -67,33 +43,10 @@ export default function Course() {
               </tbody>
             </table>
 
-            <form onSubmit={handleAddFormSubmit}>
-              <input
-                type="text"
-                name="component"
-                required="required"
-                placeholder="Component"
-                onChange={handleAddFormChange}
-              />
-              <input
-                type="number"
-                name="weight"
-                required="required"
-                placeholder="Weight of Component"
-                onChange={handleAddFormChange}
-              />
-              <input
-                type="number"
-                name="grade"
-                required="required"
-                placeholder="Your grade"
-                onChange={handleAddFormChange}
-              />
-              <button typeof="submit">Submit</button>
-            </form>
+            
           </div>
-        );
+        )
       })}
     </div>
   );
-}
+    }
