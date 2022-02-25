@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Axios from "axios";
 
 export default function Home() {
@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div>
       <h1>Home Page Goes Here</h1>
-      
+
       <header className="App-header">
         <h1>Welcome to the GPA Tracker!</h1>
         <button>Sign In Here</button>
