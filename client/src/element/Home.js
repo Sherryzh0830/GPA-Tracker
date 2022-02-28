@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Axios from "axios";
-import "./course.css";
+import "./home.css";
 
 
 export default function Home() {
@@ -25,7 +25,7 @@ export default function Home() {
       <b>Have fun!</b>
       
       <div>
-      <table className="table">
+      <table className="component">
       <thead>
         <tr>
           <th>Component</th>
@@ -34,46 +34,50 @@ export default function Home() {
         </tr>
       </thead>
       <tbody>
-      {ListofEvent.map((val) => (
-          <div>
+      {ListofEvent.map((val) => {
+        return(
           <tr>
           <td>{val.component}</td>
           <td>{val.weight}</td>
           <td>{val.grade}</td>
         </tr>
-        </div>
-      ))}
+      )})}
       </tbody>
       </table>
       </div>
 
-      {ListofEvent.map((val) => {
-        return (
-          <div>
-            <div>Component:{val.component}</div>
-            <div>Weight:{val.weight}</div>
-            <div>Grade:{val.grade}</div>
+      <div>
+        
+        {ListofEvent.map((val) => {
+        return(
+          <>
+          <h2>{val.courseName} {val.courseNumber}</h2>
+          <table className="component">
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Weight</th>
+              <th>Grade</th>
+            </tr>
+          </thead><tr>
+              <td>{val.component}</td>
+              <td>{val.weight}</td>
+              <td>{val.grade}</td>
+            </tr>
+            </table>
+            </>
+            
+      )})}
+        
+      </div>
 
-            <table className="table">
-            <thead>
-              <tr>
-                <th>Component</th>
-                <th>Weight</th>
-                <th>Grade</th>
-              </tr>
-            </thead>
-            <tbody>
-                  <tr>
-                    <td>{val.component}</td>
-                    <td>{val.weight}</td>
-                    <td>{val.grade}</td>
-                  </tr>
-                
-              </tbody>
-        </table>
-          </div>
-        );
-      })}
+      <footer>
+        <div className="footer">
+          <h2>GPA Tracker</h2>
+          <p>The tool to your academic success!</p>
+          <p>Sherry Zhang -- Spring of 2022</p>
+        </div>
+      </footer>
     </div>
   );
 }
