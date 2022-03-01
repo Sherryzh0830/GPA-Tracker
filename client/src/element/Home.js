@@ -66,12 +66,25 @@ export default function Home() {
           <td>{val.component}</td>
           <td>{val.weight}%</td>
           <td>{val.grade}</td>
+          <div className="buttons">
           <button onClick={()=>UpdateEvent(val._id)}>Update</button>
           <button onClick={()=>DeleteEvent(val._id)}>Delete</button>
+          </div>
         </tr>
       )})}
       </tbody>
       </table>
+
+      {ListofEvent.map((val) => {
+        return(
+         <div className="displayInfo">
+          <div>Component: {val.component}</div>
+          <div>Weight: {val.weight}%</div>
+          <div>Grade: {val.grade}</div>
+          <button onClick={()=>UpdateEvent(val._id)}>Update</button>
+          <button onClick={()=>DeleteEvent(val._id)}>Delete</button>
+        </div>
+      )})}
         
       <div>
         <h4>Add more</h4>
