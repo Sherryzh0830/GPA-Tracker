@@ -27,7 +27,7 @@ export default function Home() {
   }
 
   const DeleteEvent = (id) => {
-    Axios.delete('http://localhost:3001/deleteEvent/${id}')
+    Axios.delete(`http://localhost:3001/deleteEvent/${id}`)
   }
 
   Axios.get("http://localhost:3001/getEvent").then((response) => {
@@ -74,17 +74,6 @@ export default function Home() {
       )})}
       </tbody>
       </table>
-
-      {ListofEvent.map((val) => {
-        return(
-         <div className="displayInfo">
-          <div>Component: {val.component}</div>
-          <div>Weight: {val.weight}%</div>
-          <div>Grade: {val.grade}</div>
-          <button onClick={()=>UpdateEvent(val._id)}>Update</button>
-          <button onClick={()=>DeleteEvent(val._id)}>Delete</button>
-        </div>
-      )})}
         
       <div>
         <h4>Add more</h4>
