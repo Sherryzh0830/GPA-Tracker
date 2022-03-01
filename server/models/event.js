@@ -11,14 +11,6 @@ const EventSchema = new mongoose.Schema({
   grade: {
     type: Number,
     required: true,
-  },
-  courseName: {
-    type: String,
-    required: true,
-  },
-  courseNumber: {
-    type: String,
-    required: true,
   }
 });
 const EventModel = mongoose.model("event", EventSchema);

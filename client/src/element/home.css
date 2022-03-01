@@ -37,14 +37,3 @@
     border-bottom: 1.5px solid #5f759c;
 }
 
-.footer{
-    text-align: center;
-    background-color: #545b6894;
-  min-height: 10vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(1px + 2vmin);
-  color: white;
-}
