@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #274c6e;
   min-height: 50vh;
   display: flex;
   flex-direction: column;
@@ -24,7 +24,8 @@
   color: white;
 }
 .App-text{
-  background-color: #4ecef55d;
+  background-color: #fcab5fe0;
+  
   
 }
 
@@ -46,18 +47,27 @@ nav{
   justify-content: space-around;
   align-items: center;
   min-height: 10vh;
-  background: #4ECDC4;
-  color: black;
+  background: #0d3b66;
+  color: white;
   font-family: "Gill Sans", sans-serif;
+  padding: 0.5rem calc((100vw - 1000px)/2);
+  z-index: 10;
 }
 
+.logo{
+  max-height: 12vh;
+}
 .nav-links{
   width:50%;
   display:flex;
   justify-content: space-around;
   align-items: center;
   list-style: none;
+  text-decoration: none;
+  padding: 0 1rem;
+  font-size: 17px;
 }
+
 
 .page-container{
   display:flex;
