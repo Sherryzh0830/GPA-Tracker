@@ -25,10 +25,12 @@ app.get("/getEvent", (req, res) => {
 });
 
 app.post("/createEvent", async (req, res) => {
+  const courseName = req.body.courseName;
   const component = req.body.component;
   const weight = req.body.weight;
   const grade = req.body.grade;
   const event = new EventModel({
+    courseName: courseName,
     component: component,
     weight: weight,
     grade: grade,
@@ -52,6 +54,7 @@ app.delete("/deleteEvent/:id", async (req, res) => {
 });
 
 app.post("/createEvent", async (req, res) => {
+  const courseName = req.body.courseName;
   const component = req.body.component;
   const weight = req.body.weight;
   const grade = req.body.grade;
@@ -59,6 +62,7 @@ app.post("/createEvent", async (req, res) => {
     component: component,
     weight: weight,
     grade: grade,
+    courseName: courseName,
   });
   await event.save();
 });
@@ -83,6 +87,7 @@ app.get("/getEventbyCourseName", (req, res) => {
     }
   });
 });
+
 
 app.listen(3001, () => {
   console.log("connected to servers successfully");

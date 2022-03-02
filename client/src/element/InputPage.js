@@ -4,6 +4,7 @@ import "./InputPage.css";
 
 export default function InputPage() {
   const [ListofEvent, setListofEvent] = useState([]);
+  const [courseName, setcourseName] = useState("");
   const [component, setComponent] = useState("");
   const [weight, setWeight] = useState("");
   const [grade, setGrade] = useState("");
@@ -12,13 +13,14 @@ export default function InputPage() {
 
   const AddEvent = () => {
     Axios.post("http://localhost:3001/createEvent", {
+      courseName: courseName,
       component: component,
       weight: weight,
       grade: grade,
     }).then(() => {
       setListofEvent([
         ...ListofEvent,
-        { component: component, weight: weight, grade: grade },
+        { courseName: courseName, component: component, weight: weight, grade: grade },
       ]);
     });
     setShow(!show);
@@ -53,6 +55,7 @@ export default function InputPage() {
         <table className="component">
           <thead>
             <tr>
+              <th>Course</th>
               <th>Component</th>
               <th>Weight</th>
               <th>Grade</th>
@@ -63,6 +66,7 @@ export default function InputPage() {
             {ListofEvent.map((val) => {
               return (
                 <tr>
+                  <td>{val.courseName}</td>
                   <td>{val.component}</td>
                   <td>{val.weight}%</td>
                   <td>{val.grade}</td>
@@ -120,6 +124,12 @@ export default function InputPage() {
           <>
             <div className="show-more">
               <h4>Add More Components Here!</h4>
+              <input
+                type="text"
+                onChange={(event) => setcourseName(event.target.value)}
+                value={courseName}
+                placeholder="Please enter course name"
+              />
               <input
                 type="text"
                 onChange={(event) => setComponent(event.target.value)}
