@@ -1,3 +1,21 @@
+.course{
+    font-size: 1.5em;
+    border-collapse: collapse;
+    border:5px;
+    border-radius: 5px 5px;
+    min-width:200px;
+    background-color: #5f759c;
+    color: white;
+    font-weight: bold;
+}
+.course:hover {
+    background-color: #0d3b66;
+    color:#f3f3f3;
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
 .component{
     border-collapse: collapse;
     margin-left: auto;
@@ -23,7 +41,6 @@
 .component tbody tr {
     border-bottom: 1px solid lightgray;
     transition: all .2s ease-in;
-    cursor: pointer;
 }
 .component tbody tr:hover {
     background-color: #f8f5f5;

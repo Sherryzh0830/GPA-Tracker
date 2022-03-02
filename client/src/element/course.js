@@ -1,6 +1,8 @@
 import "./course.css";
 import React, { useState } from "react";
 import data from "./data.json";
+import "./InputPage.css";
+
 
 export default function Course() {
   const courseInfo = [
@@ -20,10 +22,10 @@ export default function Course() {
       {courseInfo.map((value) => {
         return (
           <div>
-            <h2>
+            <button className="course">
               {value.courseName} {value.courseNum}
-            </h2>
-            <table className="table">
+            </button>
+            <table className="component">
               <thead>
                 <tr>
                   <th>Component</th>

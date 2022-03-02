@@ -16,9 +16,6 @@ export default function Home() {
         by calculating the distribution of grades.
       </h3>
       <b>Have fun!</b>
-      
-      
-
       {/*<div>
         {ListofEvent.map((val) => {
         return(
