@@ -1,8 +1,8 @@
 import "./course.css";
 import React, { useState } from "react";
 import data from "./data.json";
+import Axios from "axios";
 import "./InputPage.css";
-
 
 export default function Course() {
   const courseInfo = [
@@ -11,12 +11,62 @@ export default function Course() {
     { id: 3, courseName: "Math", courseNum: "103" },
   ];
 
-  const [components, setComponents] = useState(data);
-  
+  const [ListofCourse, setListofCourse] = useState([]);
+  const [ListofEventwithCourseName, setListofEventwithCourseName] = useState([]);
+
+
+  Axios.get("http://localhost:3001/getCourse").then((response) => {
+    setListofCourse(response.data);
+  });
+
+  const FindCourse = (courseName) => {
+    Axios.get(`http://localhost:3001/getEventbyCourseName${courseName}`)
+    .then((response) => {
+      setListofEventwithCourseName(response.data);
+  });
 
   return (
     <div>
-      {courseInfo.map((value) => {
+      {ListofCourse.map((val) => {
+        return (
+          <div>
+            <div>courseName:{val.courseName}</div>
+            <div>courseNumber:{val.courseNumber}</div>
+            
+            <button className="course">
+              {val.courseName} {val.courseNumber}
+            </button>
+            <table className="component">
+              <thead>
+                <tr>
+                  <th>Component</th>
+                  <th>Weight</th>
+                  <th>Grade</th>
+                </tr>
+              </thead>
+
+            <tbody>
+              
+              {ListofEventwithCourseName.map((val) => {
+                FindCourse(val.courseName)
+                return (
+                  <tr>
+                    <td>{val.component}</td>
+                    <td>{val.weight}%</td>
+                    <td>{val.grade}</td>
+                  </tr>
+                  );
+                })
+      
+              }
+              
+            </tbody>
+            </table>
+          </div>
+        );
+      })}
+
+      {/*{courseInfo.map((value) => {
         return (
           <div>
             <button className="course">
@@ -45,7 +95,7 @@ export default function Course() {
             
           </div>
         )
-      })}
+      })}*/}
     </div>
   );
-    }
+}}

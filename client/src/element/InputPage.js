@@ -25,7 +25,7 @@ export default function InputPage() {
   };
 
   const UpdateEvent = (id) => {
-    const newComponent = prompt("Please enter new component");
+    const newComponent = prompt("Please enter your new component name");
     Axios.put("http://localhost:3001/updateEvent", {
       newComponent: newComponent,
       id: id,
@@ -111,7 +111,6 @@ export default function InputPage() {
             fontSize: "2em",
             color: "white",
             background: "#ee964b",
-            
           }}
         >
           {" "}
