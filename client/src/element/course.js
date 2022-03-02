@@ -12,9 +12,6 @@ export default function Course() {
   ];
 
   const [components, setComponents] = useState(data);
-
-
-
   
 
   return (
