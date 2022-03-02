@@ -5,11 +5,12 @@ export default function Home() {
 
   return (
     <div>
-      <h1>Home Page Goes Here</h1>
+      <hr />
 
       <header className="App-header">
         <h1>Welcome to the GPA Tracker!</h1>
       </header>
+      <hr />
 
       <h3 className="App-text">
         This Web App is a simple tool that can help students keep track of GPAs
