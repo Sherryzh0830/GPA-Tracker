@@ -24,19 +24,6 @@ app.get("/getEvent", (req, res) => {
   });
 });
 
-app.post("/createEvent", async (req, res) => {
-  const courseName = req.body.courseName;
-  const component = req.body.component;
-  const weight = req.body.weight;
-  const grade = req.body.grade;
-  const event = new EventModel({
-    courseName: courseName,
-    component: component,
-    weight: weight,
-    grade: grade,
-  });
-  await event.save();
-});
 
 app.put("/updateEvent", async (req, res) => {
   const newComponent = req.body.newComponent;
@@ -77,13 +64,27 @@ app.get("/getCourse", (req, res) => {
   });
 });
 
-app.get("/getEventbyCourseName", (req, res) => {
+
+app.get("/getCourseEvent", async(req, res) => {
   const courseName = req.params.courseName;
-  EventModel.find({courseName}, (err, result) => {
+  EventModel.find({courseName: 'PHY101'}, (err, result) => {
     if (err) {
       res.send(err);
     } else {
       res.send(result);
+    }
+  });
+});
+
+app.get("/findCourse/:courseName", (req,res)=>{
+  const courseName = req.params.courseName;
+  console.log("params:", courseName);
+  EventModel.find({courseName: courseName}, (err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(result);
+      console.log(result);
     }
   });
 });

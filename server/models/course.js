@@ -4,7 +4,7 @@ const CourseSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  courseNumber: {
+  quarter: {
     type: String,
     required: true,
   }
