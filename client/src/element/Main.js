@@ -1,10 +1,10 @@
 import React from "react";
-import Course from "./course";
+import Course from "./course/Course";
 
 export default function Main() {
   return (
     <div>
-      <h1>Main Page Goes Here</h1>
+      <h1>My Courses</h1>
       <Course />
     </div>
   );
