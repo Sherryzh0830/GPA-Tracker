@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Axios from "axios";
 import "../InputPage.css";
 
-export default function Course(props) {
+export default function Course() {
 
   const [ListofCourse, setListofCourse] = useState([]);
   const [display, setDisplay]=useState("");
@@ -24,20 +24,41 @@ export default function Course(props) {
     setClass(response.data)
   });
   }
+  const distinctQuarter= [...new Set(ListofCourse.map(x=>x.quarter))];
+  const tempQuarter="";
+
 
   return (
     <div>
-            {ListofCourse.map((result)=>(
-            <>
-            <input type="radio" value={result.courseName} name="radioValues"
-            onChange={(e)=>setDisplay(e.target.value)}/>
-            <b>{result.courseName}</b>
-            </>
-            ))}
-            <button onClick={()=>{GetClassEvent(selectedClass)}}>Get Class Detail</button>
-      <hr/>
+
+      {distinctQuarter.map((val)=>(
+        <>
+        <input type="radio" value={val} name="radioValues"
+        onChange={(e)=>{
+          tempQuarter = e.target.value;
+        }}/>
+        <b>{val}</b>
+        </>
+        ))}
+
+<br/>
+
+        {ListofCourse.map((result)=>(
+        <>
+        <input type="radio" value={result.courseName} name="radioValues2"
+        onChange={(e)=>setDisplay(e.target.value)}/>
+        <b>{result.courseName}</b>
+        </>
+        ))}
+        <br/>
+        <button onClick={()=>{
+          GetClassEvent(selectedClass);
+
+          }}>Get Class Detail</button>
+  <hr/>
       <h3>{display}</h3>
-      <table className="component">
+
+      <table className="table">
       <thead>
         <tr>
           <th>Component</th>
