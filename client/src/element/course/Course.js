@@ -53,7 +53,7 @@ export default function Course() {
         <br/>
         <button onClick={()=>{
           GetClassEvent(selectedClass);
-
+          
           }}>Get Class Detail</button>
   <hr/>
       <h3>{display}</h3>

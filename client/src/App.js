@@ -4,6 +4,7 @@ import Nav from "./Nav";
 import Home from "./element/Home";
 import Main from "./element/Main";
 import InputPage from "./element/InputPage";
+import Footer from "./element/Footer/Footer";
 import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             <Route path='/InputPage' element={<InputPage />}></Route>
           </Routes>
       </div>
+      <Footer />
     </div>
   );
 }
