@@ -10,6 +10,7 @@ import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 function App() {
   return (
     <div className="App">
+      <div className="page-container">
       <div className="content-wrap">
       <Nav />
           <Routes>
@@ -19,6 +20,7 @@ function App() {
           </Routes>
       </div>
       <Footer />
+      </div>
     </div>
   );
 }
