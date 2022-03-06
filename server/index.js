@@ -64,6 +64,7 @@ app.get("/getCourse", (req, res) => {
   });
 });
 
+
 app.get("/findCourse/:courseName", (req,res)=>{
   const courseName = req.params.courseName;
   console.log("params:", courseName);
@@ -77,18 +78,6 @@ app.get("/findCourse/:courseName", (req,res)=>{
   });
 });
 
-app.get("/findCourseList/:quarter", (req,res)=>{
-  const quarter = req.params.quarter;
-  console.log("params:", quarter);
-  CourseModel.find({quarter: quarter}, (err, result) => {
-    if (err) {
-      res.send(err);
-    } else {
-      res.send(result);
-      console.log(result);
-    }
-  });
-});
 
 app.listen(3001, () => {
   console.log("connected to servers successfully");

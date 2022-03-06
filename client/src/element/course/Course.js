@@ -5,15 +5,20 @@ import "../InputPage.css";
 
 export default function Course() {
   const [ListofCourse, setListofCourse] = useState([]);
+  const [ListofEvent, setListofEvent] = useState([]);
+  const [Class, setClass] = useState([]);
   const [display, setDisplay] = useState("");
   const [show, setShow] = useState(false);
+  const selectedClass = display;
+  const distinctQuarter = [...new Set(ListofCourse.map((x) => x.quarter))];
+  const tempQuarter = "";
 
   Axios.get("http://localhost:3001/getCourse").then((response) => {
     setListofCourse(response.data);
   });
-
-  const [Class, setClass] = useState([]);
-  const selectedClass = display;
+  Axios.get("http://localhost:3001/getEvent").then((response) => {
+    setListofEvent(response.data);
+  });
 
   const GetClassEvent = (selectedClass) => {
     console.log(selectedClass);
@@ -24,9 +29,8 @@ export default function Course() {
       }
     );
   };
-  const distinctQuarter = [...new Set(ListofCourse.map((x) => x.quarter))];
-  const tempQuarter = "";
 
+  
   return (
     <div>
       {distinctQuarter.map((val) => (
@@ -47,7 +51,7 @@ export default function Course() {
       <br />
       {show && (
         <>
-          {ListofCourse.map((result) => (
+          {ListofCourse.filter(o1 => ListofEvent.some(o2 => o1.quarter === tempQuarter && o1.courseName === o2.courseName)).map((result) => (
             <>
               <input
                 type="radio"
@@ -95,69 +99,6 @@ export default function Course() {
           </table>
         </>
       )}
-
-      {/*{ListofCourse.map((val) => {
-        return (
-          <div>
-            <button className="course" value="{val.courseName}"onClick={ShowCourse}>
-              {val.courseName}</button>
-              <table className="component">
-              <thead>
-                <tr>
-                  <th>Course</th>
-                  <th>Component</th>
-                  <th>Weight</th>
-                  <th>Grade</th>
-                </tr>
-              </thead>
-              <tbody>
-              {ListofEvent.map((val)=>{
-                return(
-                  <tr>
-                  <td>{val.courseName}</td>
-                  <td>{val.component}</td>
-                  <td>{val.weight}%</td>
-                  <td>{val.grade}</td>
-                  </tr>
-                )
-              })}
-              </tbody>
-              </table>
-            
-          </div>
-        );
-      })}*/}
-
-      {/*{courseInfo.map((value) => {
-        return (
-          <div>
-            <button className="course">
-              {value.courseName} {value.courseNum}
-            </button>
-            <table className="component">
-              <thead>
-                <tr>
-                  <th>Component</th>
-                  <th>Weight</th>
-                  <th>Grade</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {components.map((comp) => (
-                  <tr>
-                    <td>{comp.component}</td>
-                    <td>{comp.weight}</td>
-                    <td>{comp.grade}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-            
-          </div>
-        )
-      })}*/}
     </div>
   );
 }
