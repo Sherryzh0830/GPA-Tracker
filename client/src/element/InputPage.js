@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Axios from "axios";
 import "./InputPage.css";
+import {FaPlus} from "react-icons/fa";
 
 export default function InputPage() {
   const [ListofEvent, setListofEvent] = useState([]);
@@ -106,19 +107,17 @@ export default function InputPage() {
           className="plus-button"
           style={{
             borderWidth: 0,
-            borderColor: "rgba(0,0,0,0.2)",
             alignItems: "center",
             justifyContent: "center",
-            width: 40,
-            height: 40,
-            borderRadius: 20,
+            width: 65,
+            height: 65,
+            borderRadius: 45,
             fontSize: "2em",
             color: "white",
             background: "#ee964b",
           }}
         >
-          {" "}
-          +{" "}
+          <FaPlus/>
         </button>
         {show && (
           <>
