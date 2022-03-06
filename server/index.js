@@ -78,6 +78,30 @@ app.get("/findCourse/:courseName", (req,res)=>{
   });
 });
 
+app.get("/findQuarter/:quarter", (req,res)=>{
+  const quarter = req.params.quarter;
+  console.log("params:", quarter);
+  CourseModel.find({quarter: quarter}, (err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(result);
+      console.log(result);
+    }
+  });
+});
+
+app.post("/createCourse", async (req, res) => {
+  const courseName = req.body.courseName;
+  const quarter = req.body.quarter;
+  const course = new CourseModel({
+    quarter: quarter,
+    courseName: courseName,
+  });
+  await course.save();
+});
+
+
 
 app.listen(3001, () => {
   console.log("connected to servers successfully");

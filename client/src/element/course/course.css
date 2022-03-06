@@ -54,3 +54,9 @@
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
+
+.Add-Course{
+    background-color:#faf0ca;
+    background-size:contain;
+    display: none;
+}
