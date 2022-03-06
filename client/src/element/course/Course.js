@@ -51,7 +51,10 @@ export default function Course() {
       <br />
       {show && (
         <>
-          {ListofCourse.filter(o1 => ListofEvent.some(o2 => o1.quarter === tempQuarter && o1.courseName === o2.courseName)).map((result) => (
+          {ListofCourse.filter(o1 => 
+              ListofEvent.some(o2 => o1.quarter === tempQuarter 
+                && o1.courseName === o2.courseName))
+              .map((result) => (
             <>
               <input
                 type="radio"
