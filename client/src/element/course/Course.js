@@ -2,7 +2,8 @@ import "./course.css";
 import React, { useState } from "react";
 import Axios from "axios";
 import "../InputPage.css";
-import {FaPlus} from "react-icons/fa";
+import {Link} from "react-router-dom";
+import {FaEdit} from "react-icons/fa";
 
 
 export default function Course() {
@@ -157,15 +158,13 @@ export default function Course() {
               })}
             </tbody>
           </table>
+          <ul className="">
+          <Link to='/InputPage' style={{textDecoration:'none', color:'0d3b66'}}><FaEdit/>Edit</Link>
+          </ul>
         </>
       )}
 
       <br/>
-
-      
-      
-          
-        
 
     </div>
   );
