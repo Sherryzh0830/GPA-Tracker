@@ -1,12 +1,15 @@
 import React from "react";
 import Course from "./course/Course";
-import Dropdown from "./course/Dropdown";
 
 export default function Main() {
   return (
     <div>
-      <Dropdown/>
-      <h1>My Courses</h1>
+      <h1 style={{minHeight:'5vh', 
+                  flexDirection:'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginTop:'20px'
+                }}>My Courses</h1>
       <Course />
     </div>
   );

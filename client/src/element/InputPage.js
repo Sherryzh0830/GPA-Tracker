@@ -51,7 +51,7 @@ export default function InputPage() {
 
   return (
     <div>
-      <h1>Edit Mode</h1>
+      <h1 style={{marginTop:'20px'}}>Edit Mode</h1>
       <div>
         <table className="component">
           <thead>

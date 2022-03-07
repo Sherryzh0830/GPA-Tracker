@@ -4,6 +4,8 @@ import Axios from "axios";
 import "../InputPage.css";
 import {Link} from "react-router-dom";
 import {FaEdit} from "react-icons/fa";
+import { IconContext } from "react-icons";
+
 
 
 export default function Course() {
@@ -74,7 +76,7 @@ export default function Course() {
               
             }}
           />
-          <b>{val}</b>
+          {val}
         </>
       ))}
      
@@ -89,7 +91,7 @@ export default function Course() {
                 name="radioValues2"
                 onChange={(e) => setDisplay(e.target.value)}
               />
-              <b>{result.courseName}</b>
+              {result.courseName}
             </>
           ))}
 
@@ -136,7 +138,7 @@ export default function Course() {
           <hr />
           <h3>{display}</h3>
 
-          <table className="table">
+          <table className="courseTable">
             <thead>
               <tr>
                 <th>Component</th>
@@ -158,9 +160,11 @@ export default function Course() {
               })}
             </tbody>
           </table>
-          <ul className="">
-          <Link to='/InputPage' style={{textDecoration:'none', color:'0d3b66'}}><FaEdit/>Edit</Link>
+          <IconContext.Provider value={{color:"#0d3b66", size:"1em"}}>
+          <ul className="edit-button">
+          <Link to='/InputPage' style={{textDecoration:'none', fontSize:'1em'}}><FaEdit/>Edit</Link>
           </ul>
+          </IconContext.Provider>
         </>
       )}
 
