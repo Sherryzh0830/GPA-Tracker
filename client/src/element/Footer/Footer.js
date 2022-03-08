@@ -36,9 +36,9 @@ export default function Footer() {
                 <div className="col">
                 <b><h5>Menu</h5></b>
                     <ul className="list-unstyled">
-                        <li><a href ="#" style={{textDecoration:'none', color:'white'}}>Home</a></li>
-                        <li><a href ="#" style={{textDecoration:'none', color:'white'}}>About</a></li>
-                        <li><a href ="#" style={{textDecoration:'none', color:'white'}}>Courses</a></li>
+                        <li><a href ="/" style={{textDecoration:'none', color:'white'}}>Home</a></li>
+                        <li><a href ="/About" style={{textDecoration:'none', color:'white'}}>About</a></li>
+                        <li><a href ="/Main" style={{textDecoration:'none', color:'white'}}>Courses</a></li>
                     </ul>
                 </div>
                 {/*column 3*/}

@@ -8,7 +8,7 @@ export default function Main() {
                   flexDirection:'column',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  marginTop:'20px'
+                  marginTop:'20px',
                 }}>My Courses</h1>
       <Course />
     </div>
