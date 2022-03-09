@@ -29,7 +29,9 @@ app.put("/updateEvent", async (req, res) => {
   const newComponent = req.body.newComponent;
   const id = req.body.id;
   try {
-    await EventModel.findByIdAndUpdate(id, { component: newComponent });
+    if(newComponent!=""){
+      await EventModel.findByIdAndUpdate(id, { component: newComponent });
+    }
   } catch (err) {
     console.log(err);
   }

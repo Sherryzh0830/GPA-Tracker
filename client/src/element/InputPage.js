@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import Axios from "axios";
 import "./InputPage.css";
-import {FaPlus} from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
+import ReadOnlyRow from "./EditAll/ReadOnlyRow";
+import EditableRow from "./EditAll/EditableRow";
 
 export default function InputPage() {
   const [ListofEvent, setListofEvent] = useState([]);
@@ -11,6 +13,12 @@ export default function InputPage() {
   const [grade, setGrade] = useState("");
 
   const [show, setShow] = useState(false);
+  const [editElement, setEditElement] = useState(null);
+
+  const handleEditClick = (event, val) => {
+    event.preventDefault();
+    setEditElement(val.id);
+  };
 
   const AddEvent = () => {
     Axios.post("http://localhost:3001/createEvent", {
@@ -21,7 +29,12 @@ export default function InputPage() {
     }).then(() => {
       setListofEvent([
         ...ListofEvent,
-        { courseName: courseName, component: component, weight: weight, grade: grade },
+        {
+          courseName: courseName,
+          component: component,
+          weight: weight,
+          grade: grade,
+        },
       ]);
     });
     setShow(!show);
@@ -51,22 +64,34 @@ export default function InputPage() {
 
   return (
     <div>
-      <h1 style={{marginTop:'20px'}}>Edit Mode</h1>
+      <h1 style={{ marginTop: "20px" }}>Edit Mode</h1>
       <div>
-        <table className="component">
-          <thead>
-            <tr>
-              <th>Course</th>
-              <th>Component</th>
-              <th>Weight</th>
-              <th>Grade</th>
-              <th>Edit</th>
-            </tr>
-          </thead>
-          <tbody>
-            {ListofEvent.map((val) => {
-              return (
-                <tr>
+        <form>
+          <table className="component">
+            <thead>
+              <tr>
+                <th>Course</th>
+                <th>Component</th>
+                <th>Weight</th>
+                <th>Grade</th>
+                <th>Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              {ListofEvent.map((val) => {
+                return (
+                  <Fragment>
+                    {editElement === val.id ? (
+                      <EditableRow />
+                    ) : (
+                      <ReadOnlyRow
+                        val={val}
+                        handleEditClick={handleEditClick}
+                      />
+                    )}
+                  </Fragment>
+
+                  /*<tr>
                   <td>{val.courseName}</td>
                   <td>{val.component}</td>
                   <td>{val.weight}%</td>
@@ -97,11 +122,12 @@ export default function InputPage() {
                       Delete
                     </button>
                   </div>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                    </tr>*/
+                );
+              })}
+            </tbody>
+          </table>
+        </form>
         <button
           onClick={() => setShow(!show)}
           className="plus-button"
@@ -117,7 +143,7 @@ export default function InputPage() {
             background: "#ee964b",
           }}
         >
-          <FaPlus/>
+          <FaPlus />
         </button>
         {show && (
           <>
