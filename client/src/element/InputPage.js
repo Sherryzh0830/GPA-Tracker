@@ -14,10 +14,49 @@ export default function InputPage() {
 
   const [show, setShow] = useState(false);
   const [editElement, setEditElement] = useState(null);
+  const [editElementId, setEditElementId] = useState(null);
+  const [editFormData, setEditFormData] = useState({
+    courseName: "",
+    component: "",
+    weight: 0,
+    grade: 0,
+  });
+
+  const handleEditFormChange = (event) => {
+    event.preventDefault();
+    const fieldName = event.target.getAttribute("name");
+    const fieldValue = event.target.value;
+    const newFormData = { ...editFormData };
+    newFormData[fieldName] = fieldValue;
+    setEditFormData(newFormData);
+  };
 
   const handleEditClick = (event, val) => {
     event.preventDefault();
-    setEditElement(val.id);
+    setEditElement(val._id);
+    const formValues = {
+      courseName: val.courseName,
+      component: val.component,
+      weight: val.weight,
+      grade: val.grade,
+    };
+    setEditFormData(formValues);
+  };
+
+  const handleEditFormSubmit = (event) => {
+    event.preventDefault();
+    const editedElement = {
+      id: editElementId,
+      courseName: editFormData.courseName,
+      component: editFormData.component,
+      weight: editFormData.weight,
+      grade: editFormData.grade,
+    };
+    const newElements = [...ListofEvent];
+    const index = ListofEvent.findIndex((val) => val._id === editElementId);
+    newElements[index]=editedElement;
+    setListofEvent(newElements);
+    setEditElementId(null);
   };
 
   const AddEvent = () => {
@@ -66,7 +105,7 @@ export default function InputPage() {
     <div>
       <h1 style={{ marginTop: "20px" }}>Edit Mode</h1>
       <div>
-        <form>
+        <form onSubmit={handleEditFormSubmit}>
           <table className="component">
             <thead>
               <tr>
@@ -81,8 +120,11 @@ export default function InputPage() {
               {ListofEvent.map((val) => {
                 return (
                   <Fragment>
-                    {editElement === val.id ? (
-                      <EditableRow />
+                    {editElement === val._id ? (
+                      <EditableRow
+                        editFormData={editFormData}
+                        handleEditFormChange={handleEditFormChange}
+                      />
                     ) : (
                       <ReadOnlyRow
                         val={val}
