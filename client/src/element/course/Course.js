@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { FaEdit } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import GradeConversion from "./GradeConversion";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 export default function Course() {
   const [ListofCourse, setListofCourse] = useState([]);
@@ -22,15 +21,6 @@ export default function Course() {
   const [finalgrade, setFinalgrade] = useState("");
   const selectedClass = display;
   const distinctQuarter = [...new Set(ListofCourse.map((x) => x.quarter))];
-
-
-  const handleDragEnd = (e) => {
-    if (!e.destination) return;
-    let tempData = Array.from(Class);
-    let [source_data] = tempData.splice(e.source.index, 1);
-    tempData.splice(e.destination.index, 0, source_data);
-    setClass(tempData);
-  };
 
   const [lettergrade, setLettergrade] = useState("");
   const scale = [
@@ -321,76 +311,55 @@ export default function Course() {
         <>
           <hr />
           <h3 className="courseName">{display}</h3>
-          <DragDropContext onDragEnd={handleDragEnd}>
             <table className="courseTable">
               <thead>
                 <tr>
-                  <th />
                   <th>Component</th>
                   <th>Weight</th>
                   <th>Grade</th>
                   <th className="edit-col">Edit</th>
                 </tr>
               </thead>
-              <Droppable droppableId="droppable-1">
-                {(provider) => (
-                  <tbody ref={provider.innerRef} {...provider.droppableProps}>
-                    {Class.map((val, index) => {
+                  <tbody>
+                    {Class.map((val) => {
                       return (
-                      <Draggable
-                        key={val.courseName}
-                        draggableId={val.courseName}
-                        index={index}
-                      >
-                        {(provider) => (
-                            <tr
-                              {...provider.draggableProps}
-                              ref={provider.innerRef}
-                            >
-                              <td {...provider.dragHandleProps}> = </td>
-                              <td>{val.component}</td>
-                              <td>{val.weight}%</td>
-                              <td>{val.grade}</td>
-                              <td className="edit-col">
-                                <div className="edit-buttons">
-                                  <button
-                                    onClick={() => UpdateEvent(val._id)}
-                                    style={{
-                                      backgroundColor: "#f4d35e",
-                                      borderColor: "#faf0ca",
-                                      padding: "0.4rem",
-                                      fontWeight: "bold",
-                                      color: "#0d3b66",
-                                    }}
-                                  >
-                                    Update
-                                  </button>
-                                  <button
-                                    onClick={() => DeleteEvent(val._id)}
-                                    style={{
-                                      backgroundColor: "#f4d35e",
-                                      borderColor: "#faf0ca",
-                                      padding: "0.4rem",
-                                      fontWeight: "bold",
-                                      color: "#0d3b66",
-                                    }}
-                                  >
-                                    Delete
-                                  </button>
-                                </div>
-                              </td>
-                            </tr>
-                        )}
-                      </Draggable>)
+                        <tr>
+                          <td>{val.component}</td>
+                          <td>{val.weight}%</td>
+                          <td>{val.grade}</td>
+                          <td className="edit-col">
+                            <div className="edit-buttons">
+                              <button
+                                onClick={() => UpdateEvent(val._id)}
+                                style={{
+                                  backgroundColor: "#f4d35e",
+                                  borderColor: "#faf0ca",
+                                  padding: "0.4rem",
+                                  fontWeight: "bold",
+                                  color: "#0d3b66",
+                                }}
+                              >
+                                Update
+                              </button>
+                              <button
+                                onClick={() => DeleteEvent(val._id)}
+                                style={{
+                                  backgroundColor: "#f4d35e",
+                                  borderColor: "#faf0ca",
+                                  padding: "0.4rem",
+                                  fontWeight: "bold",
+                                  color: "#0d3b66",
+                                }}
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      )
                     })}
-                 {provider.placeholder}
-
                   </tbody>
-                  
-                )}
-              </Droppable>
             </table>
-          </DragDropContext>
 
           <table className="courseTable">
             <tr>

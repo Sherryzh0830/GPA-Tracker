@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 import "./InputPage.css";
 import { FaPlus } from "react-icons/fa";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+
 
 export default function InputPage() {
   const [ListofEvent, setListofEvent] = useState([]);
@@ -12,6 +14,14 @@ export default function InputPage() {
   const [grade, setGrade] = useState("");
 
   const [show, setShow] = useState(false);
+
+  const handleDragEnd = (e) => {
+    if (!e.destination) return;
+    let tempData = Array.from(ListofEvent);
+    let [source_data] = tempData.splice(e.source.index, 1);
+    tempData.splice(e.destination.index, 0, source_data);
+    setListofEvent(tempData);
+  };
 
   const AddEvent = () => {
     Axios.post("http://localhost:3001/createEvent", {
@@ -88,9 +98,11 @@ export default function InputPage() {
       </div>
 
       <div>
+      <DragDropContext onDragEnd={handleDragEnd}>
         <table className="component">
           <thead>
             <tr>
+            <th />
               <th>Course</th>
               <th>Component</th>
               <th>Weight</th>
@@ -98,10 +110,20 @@ export default function InputPage() {
               <th>Edit</th>
             </tr>
           </thead>
-          <tbody>
-            {ListofEvent.map((val) => {
+          <Droppable droppableId="all-courses">
+          {(provider) => (
+          <tbody ref={provider.innerRef} {...provider.droppableProps}>
+            {ListofEvent?.map((val,index) => {
               return (
-                <tr>
+                <Draggable
+                        key={val.courseName}
+                        draggableId={val.courseName}
+                        index={index}
+                      >
+                {(provider) => (
+                <tr {...provider.draggableProps}
+                ref={provider.innerRef}>
+                  <td {...provider.dragHandleProps}> = </td>
                   <td>{val.courseName}</td>
                   <td>{val.component}</td>
                   <td>{val.weight}%</td>
@@ -133,10 +155,20 @@ export default function InputPage() {
                     </button>
                   </div>
                 </tr>
-              );
-            })}
+                )}
+                </Draggable>
+                )
+                })}
+              {provider.placeholder}
           </tbody>
+          )}
+          </Droppable>
         </table>
+        </DragDropContext>
+      </div>
+      
+
+      <div>
         <button
           onClick={() => setShow(!show)}
           className="plus-button"
