@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { FaEdit } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import GradeConversion from "./GradeConversion";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 export default function Course() {
   const [ListofCourse, setListofCourse] = useState([]);
@@ -22,107 +23,116 @@ export default function Course() {
   const selectedClass = display;
   const distinctQuarter = [...new Set(ListofCourse.map((x) => x.quarter))];
 
+
+  const handleDragEnd = (e) => {
+    if (!e.destination) return;
+    let tempData = Array.from(Class);
+    let [source_data] = tempData.splice(e.source.index, 1);
+    tempData.splice(e.destination.index, 0, source_data);
+    setClass(tempData);
+  };
+
   const [lettergrade, setLettergrade] = useState("");
-    const scale =[
-        {
-            "id":1,
-            "min":90,
-            "max":100,
-            "letter":"A+",
-            "gpa":"4.0"
-        },
-        {
-            "id":2,
-            "min":85,
-            "max":89,
-            "letter":"A",
-            "gpa":"4.0"
-        },
-        {
-            "id":3,
-            "min":80,
-            "max":84,
-            "letter":"A-",
-            "gpa":3.7
-        },
-        {
-            "id":4,
-            "min":77,
-            "max":79,
-            "letter":"B+",
-            "gpa":3.3
-        },
-        {
-            "id":5,
-            "min":73,
-            "max":76,
-            "letter":"B",
-            "gpa":"3.0"
-        },
-        {
-            "id":6,
-            "min":70,
-            "max":72,
-            "letter":"B-",
-            "gpa":2.7
-        },
-        {
-            "id":7,
-            "min":67,
-            "max":69,
-            "letter":"C+",
-            "gpa":2.3
-        },
-        {
-            "id":8,
-            "min":63,
-            "max":66,
-            "letter":"C",
-            "gpa":"2.0"
-        },
-        {
-            "id":9,
-            "min":60,
-            "max":62,
-            "letter":"C-",
-            "gpa":1.7
-        },
-        {
-            "id":10,
-            "min":57,
-            "max":59,
-            "letter":"D+",
-            "gpa":1.3
-        },
-        {
-            "id":11,
-            "min":53,
-            "max":56,
-            "letter":"D",
-            "gpa":"1.0"
-        },
-        {
-            "id":12,
-            "min":50,
-            "max":52,
-            "letter":"D-",
-            "gpa":0.7
-        },
-        {
-            "id":13,
-            "min":0,
-            "max":49,
-            "letter":"F",
-            "gpa":0
-        }
-    ];
-    const convertLetter = (numGrade) => {
-          for (var i = 1; i < scale.length; i++) {
-            if((numGrade>=scale[i].min) && (numGrade<=scale[i].max)){
-                setLettergrade(scale[i].letter);
-            }
-          }
-      };
+  const scale = [
+    {
+      id: 1,
+      min: 90,
+      max: 100,
+      letter: "A+",
+      gpa: "4.0",
+    },
+    {
+      id: 2,
+      min: 85,
+      max: 89,
+      letter: "A",
+      gpa: "4.0",
+    },
+    {
+      id: 3,
+      min: 80,
+      max: 84,
+      letter: "A-",
+      gpa: 3.7,
+    },
+    {
+      id: 4,
+      min: 77,
+      max: 79,
+      letter: "B+",
+      gpa: 3.3,
+    },
+    {
+      id: 5,
+      min: 73,
+      max: 76,
+      letter: "B",
+      gpa: "3.0",
+    },
+    {
+      id: 6,
+      min: 70,
+      max: 72,
+      letter: "B-",
+      gpa: 2.7,
+    },
+    {
+      id: 7,
+      min: 67,
+      max: 69,
+      letter: "C+",
+      gpa: 2.3,
+    },
+    {
+      id: 8,
+      min: 63,
+      max: 66,
+      letter: "C",
+      gpa: "2.0",
+    },
+    {
+      id: 9,
+      min: 60,
+      max: 62,
+      letter: "C-",
+      gpa: 1.7,
+    },
+    {
+      id: 10,
+      min: 57,
+      max: 59,
+      letter: "D+",
+      gpa: 1.3,
+    },
+    {
+      id: 11,
+      min: 53,
+      max: 56,
+      letter: "D",
+      gpa: "1.0",
+    },
+    {
+      id: 12,
+      min: 50,
+      max: 52,
+      letter: "D-",
+      gpa: 0.7,
+    },
+    {
+      id: 13,
+      min: 0,
+      max: 49,
+      letter: "F",
+      gpa: 0,
+    },
+  ];
+  const convertLetter = (numGrade) => {
+    for (var i = 1; i < scale.length; i++) {
+      if (numGrade >= scale[i].min && numGrade <= scale[i].max) {
+        setLettergrade(scale[i].letter);
+      }
+    }
+  };
 
   const CalculateGrade = () => {
     var result = 0;
@@ -131,7 +141,6 @@ export default function Course() {
     });
     setFinalgrade(result);
   };
-
 
   Axios.get("http://localhost:3001/getCourse").then((response) => {
     setListofCourse(response.data);
@@ -219,7 +228,7 @@ export default function Course() {
               GetQuarterObject(e.target.value);
               if (!show) {
                 setShow(!show);
-              };
+              }
               setFinalgrade("");
               setLettergrade("");
             }}
@@ -312,70 +321,104 @@ export default function Course() {
         <>
           <hr />
           <h3 className="courseName">{display}</h3>
+          <DragDropContext onDragEnd={handleDragEnd}>
+            <table className="courseTable">
+              <thead>
+                <tr>
+                  <th />
+                  <th>Component</th>
+                  <th>Weight</th>
+                  <th>Grade</th>
+                  <th className="edit-col">Edit</th>
+                </tr>
+              </thead>
+              <Droppable droppableId="droppable-1">
+                {(provider) => (
+                  <tbody ref={provider.innerRef} {...provider.droppableProps}>
+                    {Class.map((val, index) => {
+                      return (
+                      <Draggable
+                        key={val.courseName}
+                        draggableId={val.courseName}
+                        index={index}
+                      >
+                        {(provider) => (
+                            <tr
+                              {...provider.draggableProps}
+                              ref={provider.innerRef}
+                            >
+                              <td {...provider.dragHandleProps}> = </td>
+                              <td>{val.component}</td>
+                              <td>{val.weight}%</td>
+                              <td>{val.grade}</td>
+                              <td className="edit-col">
+                                <div className="edit-buttons">
+                                  <button
+                                    onClick={() => UpdateEvent(val._id)}
+                                    style={{
+                                      backgroundColor: "#f4d35e",
+                                      borderColor: "#faf0ca",
+                                      padding: "0.4rem",
+                                      fontWeight: "bold",
+                                      color: "#0d3b66",
+                                    }}
+                                  >
+                                    Update
+                                  </button>
+                                  <button
+                                    onClick={() => DeleteEvent(val._id)}
+                                    style={{
+                                      backgroundColor: "#f4d35e",
+                                      borderColor: "#faf0ca",
+                                      padding: "0.4rem",
+                                      fontWeight: "bold",
+                                      color: "#0d3b66",
+                                    }}
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                        )}
+                      </Draggable>)
+                    })}
+                 {provider.placeholder}
+
+                  </tbody>
+                  
+                )}
+              </Droppable>
+            </table>
+          </DragDropContext>
 
           <table className="courseTable">
-            <thead>
-              <tr>
-                <th>Component</th>
-                <th>Weight</th>
-                <th>Grade</th>
-                <th className="edit-col">Edit</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Class.map((val) => {
-                return (
-                  <>
-                    <tr>
-                      <td>{val.component}</td>
-                      <td>{val.weight}%</td>
-                      <td>{val.grade}</td>
-                      <td className="edit-col">
-                        <div className="edit-buttons">
-                          <button
-                            onClick={() => UpdateEvent(val._id)}
-                            style={{
-                              backgroundColor: "#f4d35e",
-                              borderColor: "#faf0ca",
-                              padding: "0.4rem",
-                              fontWeight: "bold",
-                              color: "#0d3b66",
-                            }}
-                          >
-                            Update
-                          </button>
-                          <button
-                            onClick={() => DeleteEvent(val._id)}
-                            style={{
-                              backgroundColor: "#f4d35e",
-                              borderColor: "#faf0ca",
-                              padding: "0.4rem",
-                              fontWeight: "bold",
-                              color: "#0d3b66",
-                            }}
-                          >
-                            Delete
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  </>
-                );
-              })}
-              <tr>
-                <td>Final Grade</td>
-                <td><button onClick={()=>{
-                  CalculateGrade();
-                  }} className="calculate">Calculate</button>
-                  <button onClick={()=>{
-                  convertLetter(finalgrade);
-                  }} className="calculate">Letter Grade</button>
-                  </td>
-                <td>{finalgrade} {""} {""}
+            <tr>
+              <td />
+              <td>Final Grade</td>
+              <td>
+                <button
+                  onClick={() => {
+                    CalculateGrade();
+                  }}
+                  className="calculate"
+                >
+                  Calculate
+                </button>
+                <button
+                  onClick={() => {
+                    convertLetter(finalgrade);
+                  }}
+                  className="calculate"
+                >
+                  Letter Grade
+                </button>
+              </td>
+              <td>
+                {finalgrade} {""} {""}
                 {lettergrade}
-                </td>
-              </tr>
-            </tbody>
+              </td>
+            </tr>
           </table>
 
           <button
@@ -390,7 +433,7 @@ export default function Course() {
             style={{
               borderWidth: 0,
               alignItems: "center",
-              justifyContent:"center",
+              justifyContent: "center",
               width: 50,
               height: 50,
               borderRadius: 45,
@@ -404,8 +447,8 @@ export default function Course() {
             <b
               style={{
                 alignItems: "center",
-                justifyContent:"center",
-                display:"flex"
+                justifyContent: "center",
+                display: "flex",
               }}
             >
               +
@@ -479,8 +522,8 @@ export default function Course() {
         </>
       )}
 
-      <hr/>
-      <GradeConversion/>
+      <hr />
+      <GradeConversion />
     </div>
   );
 }
