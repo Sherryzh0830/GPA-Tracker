@@ -254,6 +254,12 @@ export default function Course() {
               document.getElementsByClassName("edit-button")[0].style.display =
                 "block";
             }}
+            style={{
+              backgroundColor: "#f4d35e",
+              borderColor: "#faf0ca",
+              padding: "0.4rem",
+              color: "#0d3b66",
+            }}
           >
             Get Class Detail
           </button>
@@ -261,6 +267,12 @@ export default function Course() {
             onClick={() => {
               document.getElementsByClassName("Add-Course")[0].style.display =
                 "block";
+            }}
+            style={{
+              backgroundColor: "#f4d35e",
+              borderColor: "#faf0ca",
+              padding: "0.4rem",
+              color: "#0d3b66",
             }}
           >
             Add Course
@@ -289,7 +301,7 @@ export default function Course() {
           onClick={() => {
             AddCourse();
             document.getElementsByClassName("Add-Course")[0].style.display =
-              "block";
+              "none";
           }}
         >
           Submit
@@ -369,7 +381,7 @@ export default function Course() {
           <button
             onClick={() => {
               var allEditColElements =
-                document.getElementsByClassName("show-more");
+                document.getElementsByClassName("showmore");
               for (var i = 0; i < allEditColElements.length; i++) {
                 allEditColElements[i].style.display = "block";
               }

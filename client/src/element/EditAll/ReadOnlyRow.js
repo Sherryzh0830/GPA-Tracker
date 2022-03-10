@@ -1,6 +1,6 @@
 import React from "react";
 
-const ReadOnlyRow = ({ val, handleEditClick }) => {
+const ReadOnlyRow = ({ val, handleEditClick, handleDeleteClick }) => {
   return (
     <tr>
       <td>{val.courseName}</td>
@@ -15,6 +15,9 @@ const ReadOnlyRow = ({ val, handleEditClick }) => {
           }}
         >
           UpdateAll
+        </button>
+        <button type="button" onClick={() => handleDeleteClick(val.id)}>
+          Delete
         </button>
       </td>
     </tr>

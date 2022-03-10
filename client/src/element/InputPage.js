@@ -59,6 +59,20 @@ export default function InputPage() {
     setEditElementId(null);
   };
 
+  const handleCancelClick = () => {
+    setEditElementId(null);
+  };
+
+  const handleDeleteClick = (EventId) => {
+    const newEvents = [...ListofEvent];
+
+    const index = ListofEvent.findIndex((val) => val._id === EventId);
+
+    newEvents.splice(index, 1);
+
+    setListofEvent(newEvents);
+  };
+
   const AddEvent = () => {
     Axios.post("http://localhost:3001/createEvent", {
       courseName: courseName,
@@ -124,11 +138,14 @@ export default function InputPage() {
                       <EditableRow
                         editFormData={editFormData}
                         handleEditFormChange={handleEditFormChange}
+                        handleCancelClick={handleCancelClick}
+                        handleEditFormSubmit={handleEditFormSubmit}
                       />
                     ) : (
                       <ReadOnlyRow
                         val={val}
                         handleEditClick={handleEditClick}
+                        handleDeleteClick={handleDeleteClick}
                       />
                     )}
                   </Fragment>
