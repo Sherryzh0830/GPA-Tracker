@@ -53,3 +53,24 @@
     background-color:#faf0ca;
     background-size:contain;
 }
+
+.back{
+    background: -webkit-linear-gradient(to right, #f5af19, #f12711);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #f5af19, #f12711);    border-radius: 7px;
+    border: 1px double #fae1ac;
+    color: white;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 5px;
+    width: auto;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+    cursor: pointer;
+    margin: 2px;
+    position:absolute;
+    left:30px;
+    top: 16vh;
+}

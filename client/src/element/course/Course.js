@@ -413,7 +413,7 @@ export default function Course() {
           </button>
           {show && (
             <>
-              <div className="show-more">
+              <div className="showmore">
                 <h4>Add More Components Here!</h4>
                 <input
                   type="text"

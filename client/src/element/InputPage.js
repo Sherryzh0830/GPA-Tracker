@@ -1,9 +1,8 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Axios from "axios";
 import "./InputPage.css";
 import { FaPlus } from "react-icons/fa";
-import ReadOnlyRow from "./EditAll/ReadOnlyRow";
-import EditableRow from "./EditAll/EditableRow";
 
 export default function InputPage() {
   const [ListofEvent, setListofEvent] = useState([]);
@@ -13,65 +12,6 @@ export default function InputPage() {
   const [grade, setGrade] = useState("");
 
   const [show, setShow] = useState(false);
-  const [editElement, setEditElement] = useState(null);
-  const [editElementId, setEditElementId] = useState(null);
-  const [editFormData, setEditFormData] = useState({
-    courseName: "",
-    component: "",
-    weight: 0,
-    grade: 0,
-  });
-
-  const handleEditFormChange = (event) => {
-    event.preventDefault();
-    const fieldName = event.target.getAttribute("name");
-    const fieldValue = event.target.value;
-    const newFormData = { ...editFormData };
-    newFormData[fieldName] = fieldValue;
-    setEditFormData(newFormData);
-  };
-
-  const handleEditClick = (event, val) => {
-    event.preventDefault();
-    setEditElement(val._id);
-    const formValues = {
-      courseName: val.courseName,
-      component: val.component,
-      weight: val.weight,
-      grade: val.grade,
-    };
-    setEditFormData(formValues);
-  };
-
-  const handleEditFormSubmit = (event) => {
-    event.preventDefault();
-    const editedElement = {
-      id: editElementId,
-      courseName: editFormData.courseName,
-      component: editFormData.component,
-      weight: editFormData.weight,
-      grade: editFormData.grade,
-    };
-    const newElements = [...ListofEvent];
-    const index = ListofEvent.findIndex((val) => val._id === editElementId);
-    newElements[index]=editedElement;
-    setListofEvent(newElements);
-    setEditElementId(null);
-  };
-
-  const handleCancelClick = () => {
-    setEditElementId(null);
-  };
-
-  const handleDeleteClick = (EventId) => {
-    const newEvents = [...ListofEvent];
-
-    const index = ListofEvent.findIndex((val) => val._id === EventId);
-
-    newEvents.splice(index, 1);
-
-    setListofEvent(newEvents);
-  };
 
   const AddEvent = () => {
     Axios.post("http://localhost:3001/createEvent", {
@@ -94,14 +34,28 @@ export default function InputPage() {
   };
 
   const UpdateEvent = (id) => {
-    const newComponent = prompt("Please enter your new component name");
+    const newComponent = prompt(
+      "Please enter your new component name (If no change, click 'OK')"
+    );
+    const newWeight = prompt(
+      "Please enter your new weight (If no change, click 'OK')"
+    );
+    const newGrade = prompt(
+      "Please enter your new grade (If no change, click 'OK')"
+    );
     Axios.put("http://localhost:3001/updateEvent", {
       newComponent: newComponent,
+      newWeight: newWeight,
+      newGrade: newGrade,
       id: id,
     }).then(() => {
       setListofEvent(
         ListofEvent.map((val) => {
-          return val.id === id ? { _id: id, component: val.component } : val;
+          return (
+            val.id === id ? { _id: id, component: val.component } : val,
+            val.id === id ? { _id: id, weight: val.weight } : val,
+            val.id === id ? { _id: id, grade: val.grade } : val
+          );
         })
       );
     });
@@ -117,40 +71,37 @@ export default function InputPage() {
 
   return (
     <div>
-      <h1 style={{ marginTop: "20px" }}>Edit Mode</h1>
+      
       <div>
-        <form onSubmit={handleEditFormSubmit}>
-          <table className="component">
-            <thead>
-              <tr>
-                <th>Course</th>
-                <th>Component</th>
-                <th>Weight</th>
-                <th>Grade</th>
-                <th>Edit</th>
-              </tr>
-            </thead>
-            <tbody>
-              {ListofEvent.map((val) => {
-                return (
-                  <Fragment>
-                    {editElement === val._id ? (
-                      <EditableRow
-                        editFormData={editFormData}
-                        handleEditFormChange={handleEditFormChange}
-                        handleCancelClick={handleCancelClick}
-                        handleEditFormSubmit={handleEditFormSubmit}
-                      />
-                    ) : (
-                      <ReadOnlyRow
-                        val={val}
-                        handleEditClick={handleEditClick}
-                        handleDeleteClick={handleDeleteClick}
-                      />
-                    )}
-                  </Fragment>
+        <button className="back">
+        <Link
+          to="/Main"
+          style={{
+            textDecoration: "none",
+            color: "white"
+          }}
+        >
+          Back
+        </Link>
+        </button>
+      <h1 style={{ marginTop: "20px" }}>Edit Mode</h1>
+      </div>
 
-                  /*<tr>
+      <div>
+        <table className="component">
+          <thead>
+            <tr>
+              <th>Course</th>
+              <th>Component</th>
+              <th>Weight</th>
+              <th>Grade</th>
+              <th>Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ListofEvent.map((val) => {
+              return (
+                <tr>
                   <td>{val.courseName}</td>
                   <td>{val.component}</td>
                   <td>{val.weight}%</td>
@@ -181,12 +132,11 @@ export default function InputPage() {
                       Delete
                     </button>
                   </div>
-                    </tr>*/
-                );
-              })}
-            </tbody>
-          </table>
-        </form>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
         <button
           onClick={() => setShow(!show)}
           className="plus-button"

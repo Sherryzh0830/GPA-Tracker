@@ -27,10 +27,18 @@ app.get("/getEvent", (req, res) => {
 
 app.put("/updateEvent", async (req, res) => {
   const newComponent = req.body.newComponent;
+  const newWeight = req.body.newWeight;
+  const newGrade = req.body.newGrade;
   const id = req.body.id;
   try {
     if(newComponent!=""){
       await EventModel.findByIdAndUpdate(id, { component: newComponent });
+    }
+    if(newWeight!=""){
+      await EventModel.findByIdAndUpdate(id, { weight: newWeight });
+    }
+    if(newGrade!=""){
+      await EventModel.findByIdAndUpdate(id, { grade: newGrade });
     }
   } catch (err) {
     console.log(err);
