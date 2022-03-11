@@ -21,6 +21,10 @@ export default function Course() {
   const [finalgrade, setFinalgrade] = useState("");
   const selectedClass = display;
   const distinctQuarter = [...new Set(ListofCourse.map((x) => x.quarter))];
+  
+  const [selectedCourse, setSelectedCourse] = useState("");
+  const [selectedQuarter, setSelectedQuarter] = useState("");
+
 
   const [lettergrade, setLettergrade] = useState("");
   const scale = [
@@ -208,48 +212,58 @@ export default function Course() {
 
   return (
     <div>
-      {distinctQuarter.map((val) => (
-        <>
-          <input
-            type="radio"
-            value={val}
-            name="radioValues"
-            onChange={(e) => {
-              GetQuarterObject(e.target.value);
+      <div className="dropdown menu">
+          <label for="term-names">Choose a quarter:</label>
+          <select
+            name="term-names"
+            id="term-names"
+            onChange={(event) => {
+              setSelectedQuarter(event.currentTarget.value);
+              GetQuarterObject(event.target.value);
+              setFinalgrade("");
+              setLettergrade("");
+              }}
+            
+          >
+            {distinctQuarter.map((val) => {
+              return <option value={val}>{val}</option>;
+            })}
+          </select>
+          <br/>
+          
+          <label for="class-names">Choose a course:</label>
+          <select
+            name="class-names"
+            id="class-names"
+            onClick={(event) => {
+              setSelectedCourse(event.currentTarget.value);
               if (!show) {
                 setShow(!show);
               }
               setFinalgrade("");
               setLettergrade("");
+              }}
+            onChange={(event)=>{
+              setSelectedCourse(event.currentTarget.value)
             }}
-          />
-          {val}
-        </>
-      ))}
+          >
+            {Quarter.map((val) => {
+              return <option value={val.courseName}>{val.courseName}</option>;
+            })}
+          </select>
+          
 
-      <br />
+      </div>
+
+      <hr />
+
+      <h4> {selectedCourse}</h4>
+      
       {show && (
         <>
-          {Quarter.map((result) => (
-            <>
-              <input
-                type="radio"
-                value={result.courseName}
-                name="radioValues2"
-                onChange={(e) => {
-                  setDisplay(e.target.value);
-                  setFinalgrade("");
-                  setLettergrade("");
-                }}
-              />
-              {result.courseName}
-            </>
-          ))}
-
-          <br />
           <button
             onClick={() => {
-              GetClassEvent(selectedClass);
+              GetClassEvent(selectedCourse);
               document.getElementsByClassName("edit-button")[0].style.display =
                 "block";
             }}
@@ -309,7 +323,6 @@ export default function Course() {
 
       {show && (
         <>
-          <hr />
           <h3 className="courseName">{display}</h3>
             <table className="courseTable">
               <thead>
