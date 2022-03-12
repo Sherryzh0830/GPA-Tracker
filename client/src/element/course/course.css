@@ -177,3 +177,12 @@ Link{
     cursor: pointer;
     margin: 2px;
 }
+
+.term-select{
+    width: 100px;
+}
+
+.course-select{
+    width: 105px;
+    margin-top:7px;
+}

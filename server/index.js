@@ -21,7 +21,7 @@ app.get("/getEvent", (req, res) => {
     } else {
       res.send(result);
     }
-  });
+  }).sort({courseName:1, _id:1});
 });
 
 
@@ -71,7 +71,7 @@ app.get("/getCourse", (req, res) => {
     } else {
       res.send(result);
     }
-  });
+  }).sort({_id:1});
 });
 
 

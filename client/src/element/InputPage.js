@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import "./InputPage.css";
-import { FaPlus } from "react-icons/fa";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-
+import { FaSearch, FaPlus } from "react-icons/fa";
 
 export default function InputPage() {
   const [ListofEvent, setListofEvent] = useState([]);
@@ -14,14 +12,7 @@ export default function InputPage() {
   const [grade, setGrade] = useState("");
 
   const [show, setShow] = useState(false);
-
-  const handleDragEnd = (e) => {
-    if (!e.destination) return;
-    let tempData = Array.from(ListofEvent);
-    let [source_data] = tempData.splice(e.source.index, 1);
-    tempData.splice(e.destination.index, 0, source_data);
-    setListofEvent(tempData);
-  };
+  const [searchTerm, setSearchTerm] = useState("");
 
   const AddEvent = () => {
     Axios.post("http://localhost:3001/createEvent", {
@@ -81,28 +72,40 @@ export default function InputPage() {
 
   return (
     <div>
-      
       <div>
         <button className="back">
-        <Link
-          to="/Main"
-          style={{
-            textDecoration: "none",
-            color: "white"
-          }}
-        >
-          Back
-        </Link>
+          <Link
+            to="/Main"
+            style={{
+              textDecoration: "none",
+              color: "white",
+            }}
+          >
+            Back
+          </Link>
         </button>
-      <h1 style={{ marginTop: "20px" }}>Edit Mode</h1>
+        <h1 style={{ marginTop: "20px" }}>Edit Mode</h1>
       </div>
 
       <div>
-      <DragDropContext onDragEnd={handleDragEnd}>
+        
+        <input
+          type="text"
+          placeholder="Search course/component..."
+          className="search-form"
+          style={{
+            float: "right",
+            marginRight: "100px",
+            width: "250px",
+          }}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+          }}
+        />
+        <br />
         <table className="component">
           <thead>
             <tr>
-            <th />
               <th>Course</th>
               <th>Component</th>
               <th>Weight</th>
@@ -110,20 +113,22 @@ export default function InputPage() {
               <th>Edit</th>
             </tr>
           </thead>
-          <Droppable droppableId="all-courses">
-          {(provider) => (
-          <tbody ref={provider.innerRef} {...provider.droppableProps}>
-            {ListofEvent?.map((val,index) => {
+
+          <tbody>
+            {ListofEvent.filter((val) => {
+              if (searchTerm === "") {
+                return val;
+              } else if (
+                val.courseName
+                  .toLowerCase()
+                  .includes(searchTerm.toLowerCase()) ||
+                val.component.toLowerCase().includes(searchTerm.toLowerCase())
+              ) {
+                return val;
+              }
+            }).map((val) => {
               return (
-                <Draggable
-                        key={val.courseName}
-                        draggableId={val.courseName}
-                        index={index}
-                      >
-                {(provider) => (
-                <tr {...provider.draggableProps}
-                ref={provider.innerRef}>
-                  <td {...provider.dragHandleProps}> = </td>
+                <tr>
                   <td>{val.courseName}</td>
                   <td>{val.component}</td>
                   <td>{val.weight}%</td>
@@ -155,18 +160,11 @@ export default function InputPage() {
                     </button>
                   </div>
                 </tr>
-                )}
-                </Draggable>
-                )
-                })}
-              {provider.placeholder}
+              );
+            })}
           </tbody>
-          )}
-          </Droppable>
         </table>
-        </DragDropContext>
       </div>
-      
 
       <div>
         <button
@@ -214,7 +212,7 @@ export default function InputPage() {
                 value={grade}
                 placeholder="Please enter grade"
               />
-              <button onClick={AddEvent}>Submit</button>
+              <button onClick={{AddEvent}}>Submit</button>
             </div>
           </>
         )}

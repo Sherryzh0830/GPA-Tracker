@@ -172,43 +172,6 @@ export default function Course() {
     );
   };
 
-  const AddEvent = () => {
-    Axios.post("http://localhost:3001/createEvent", {
-      courseName: courseName,
-      component: component,
-      weight: weight,
-      grade: grade,
-    }).then(() => {
-      setClass([
-        ...Class,
-        {
-          courseName: courseName,
-          component: component,
-          weight: weight,
-          grade: grade,
-        },
-      ]);
-    });
-    setShow(!show);
-  };
-
-  const UpdateEvent = (id) => {
-    const newComponent = prompt("Please enter your new component name");
-    Axios.put("http://localhost:3001/updateEvent", {
-      newComponent: newComponent,
-      id: id,
-    }).then(() => {
-      setClass(
-        Class.map((val) => {
-          return val.id === id ? { _id: id, component: val.component } : val;
-        })
-      );
-    });
-  };
-
-  const DeleteEvent = (id) => {
-    Axios.delete(`http://localhost:3001/deleteEvent/${id}`);
-  };
 
   return (
     <div>
@@ -223,7 +186,8 @@ export default function Course() {
               setFinalgrade("");
               setLettergrade("");
               }}
-            
+            placeholder="Term"
+            className="term-select"
           >
             {distinctQuarter.map((val) => {
               return <option value={val}>{val}</option>;
@@ -246,17 +210,33 @@ export default function Course() {
             onChange={(event)=>{
               setSelectedCourse(event.currentTarget.value)
             }}
+            className="course-select"
           >
             {Quarter.map((val) => {
               return <option value={val.courseName}>{val.courseName}</option>;
             })}
           </select>
-          
-
       </div>
 
-      <hr />
+      <button
+            onClick={() => {
+              document.getElementsByClassName("Add-Course")[0].style.display =
+                "block";
+            }}
+            style={{
+              backgroundColor: "#f4d35e",
+              borderColor: "#faf0ca",
+              padding: "0.4rem",
+              color: "#0d3b66",
+              marginTop:"10px"
+            }}
+          >
+            Add Course
+          </button>
+      
 
+      <hr />
+      <h6>{selectedQuarter}</h6>
       <h4> {selectedCourse}</h4>
       
       {show && (
@@ -276,20 +256,7 @@ export default function Course() {
           >
             Get Class Detail
           </button>
-          <button
-            onClick={() => {
-              document.getElementsByClassName("Add-Course")[0].style.display =
-                "block";
-            }}
-            style={{
-              backgroundColor: "#f4d35e",
-              borderColor: "#faf0ca",
-              padding: "0.4rem",
-              color: "#0d3b66",
-            }}
-          >
-            Add Course
-          </button>
+          
           <br />
         </>
       )}
@@ -330,7 +297,6 @@ export default function Course() {
                   <th>Component</th>
                   <th>Weight</th>
                   <th>Grade</th>
-                  <th className="edit-col">Edit</th>
                 </tr>
               </thead>
                   <tbody>
@@ -340,34 +306,6 @@ export default function Course() {
                           <td>{val.component}</td>
                           <td>{val.weight}%</td>
                           <td>{val.grade}</td>
-                          <td className="edit-col">
-                            <div className="edit-buttons">
-                              <button
-                                onClick={() => UpdateEvent(val._id)}
-                                style={{
-                                  backgroundColor: "#f4d35e",
-                                  borderColor: "#faf0ca",
-                                  padding: "0.4rem",
-                                  fontWeight: "bold",
-                                  color: "#0d3b66",
-                                }}
-                              >
-                                Update
-                              </button>
-                              <button
-                                onClick={() => DeleteEvent(val._id)}
-                                style={{
-                                  backgroundColor: "#f4d35e",
-                                  borderColor: "#faf0ca",
-                                  padding: "0.4rem",
-                                  fontWeight: "bold",
-                                  color: "#0d3b66",
-                                }}
-                              >
-                                Delete
-                              </button>
-                            </div>
-                          </td>
                         </tr>
                       )
                     })}
@@ -402,90 +340,7 @@ export default function Course() {
               </td>
             </tr>
           </table>
-
-          <button
-            onClick={() => {
-              var allEditColElements =
-                document.getElementsByClassName("showmore");
-              for (var i = 0; i < allEditColElements.length; i++) {
-                allEditColElements[i].style.display = "block";
-              }
-            }}
-            className="plus"
-            style={{
-              borderWidth: 0,
-              alignItems: "center",
-              justifyContent: "center",
-              width: 50,
-              height: 50,
-              borderRadius: 45,
-              fontSize: "2em",
-              color: "white",
-              background: "#f12711",
-              background: "-webkit-linear-gradient(to right, #f5af19, #f12711)",
-              background: "linear-gradient(to right, #f5af19, #f12711)",
-            }}
-          >
-            <b
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                display: "flex",
-              }}
-            >
-              +
-            </b>
-          </button>
-          {show && (
-            <>
-              <div className="showmore">
-                <h4>Add More Components Here!</h4>
-                <input
-                  type="text"
-                  onChange={(event) => setcourseName(event.target.value)}
-                  value={courseName}
-                  placeholder="Please enter course name"
-                />
-                <input
-                  type="text"
-                  onChange={(event) => setComponent(event.target.value)}
-                  value={component}
-                  placeholder="Please enter component"
-                />
-                <input
-                  type="number"
-                  onChange={(event) => setWeight(event.target.value)}
-                  value={weight}
-                  placeholder="Please enter weight"
-                />
-                <input
-                  type="number"
-                  onChange={(event) => setGrade(event.target.value)}
-                  value={grade}
-                  placeholder="Please enter grade"
-                />
-                <button onClick={AddEvent}>Submit</button>
-              </div>
-            </>
-          )}
-
-          <br />
-
-          <button
-            className="edit-button"
-            onClick={() => {
-              var allEditColElements =
-                document.getElementsByClassName("edit-col");
-              for (var i = 0; i < allEditColElements.length; i++) {
-                allEditColElements[i].style.display = "block";
-              }
-              document.getElementsByClassName("plus")[0].style.display =
-                "block";
-            }}
-          >
-            Edit
-          </button>
-          <hr />
+          
           <IconContext.Provider value={{ color: "#0d3b66", size: "1em" }}>
             <ul className="editbutton">
               <Link
@@ -497,15 +352,18 @@ export default function Course() {
                 }}
               >
                 <FaEdit />
-                Edit all courses
+                Edit courses
               </Link>
             </ul>
           </IconContext.Provider>
+          <hr />
         </>
       )}
 
-      <hr />
       <GradeConversion />
+
+
+
     </div>
   );
 }
