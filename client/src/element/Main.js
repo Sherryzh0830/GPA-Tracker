@@ -18,7 +18,6 @@ export default function Main() {
                   marginTop:'20px',
                   marginBottom:'20px',
                   fontWeight:"bolder",
-                  WebkitTextStroke:"0.5px #dc2f02"
                 }}>My Courses</h1>
       <img src={GPA} alt="GPA-img" style={{height: "200px"}}/>
       </header>

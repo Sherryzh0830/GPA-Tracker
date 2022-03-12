@@ -1,6 +1,7 @@
 import React from "react";
 import book from "../images/book.jpeg";
 import { Link } from "react-router-dom";
+import "./Main.css";
 
 
 export default function Home() {
@@ -54,18 +55,19 @@ export default function Home() {
           backgroundImage: `url(${book})`,
           height: "400px",
           backgroundRepeat: "no-repeat",
-          marginLeft: "28%",
+          marginLeft: "31%",
         }}
       >
-        <h4 style={{ width: "180px", marginLeft: "7%" }}>
+        <h4 style={{ width: "180px", marginLeft: "6%" }}>
           <br />
           <br />
           This Web App is a simple tool that can help students keep track of
           GPAs by calculating the distribution of grades.
         </h4>
       </div>
-
-      <b>Have fun!</b>
+      <div className="lil-text">
+      <p className="lil-text">Never forget to have fun!</p>
+      </div>
     </div>
   );
 }
