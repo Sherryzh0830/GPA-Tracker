@@ -45,9 +45,29 @@ app.put("/updateEvent", async (req, res) => {
   }
 });
 
+app.put("/updateCourse", async (req, res) => {
+  const newQuarter = req.body.newQuarter;
+  const newCoursename = req.body.newCoursename;
+  const id = req.body.id;
+  try {
+    if(newQuarter!=""){
+      await CourseModel.findByIdAndUpdate(id, { quarter: newQuarter });
+    }
+    if(newCoursename!=""){
+      await CourseModel.findByIdAndUpdate(id, { courseName: newCoursename });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 app.delete("/deleteEvent/:id", async (req, res) => {
   const id = req.params.id;
   await EventModel.findByIdAndRemove(id);
+});
+app.delete("/deleteCourse/:id", async (req, res) => {
+  const id = req.params.id;
+  await CourseModel.findByIdAndRemove(id);
 });
 
 app.post("/createEvent", async (req, res) => {

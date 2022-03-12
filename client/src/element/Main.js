@@ -9,6 +9,7 @@ export default function Main() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   marginTop:'20px',
+                  marginBottom:'20px'
                 }}>My Courses</h1>
       <Course />
     </div>

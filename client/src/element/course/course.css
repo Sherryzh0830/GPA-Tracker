@@ -14,7 +14,6 @@
     border-radius: 5px 5px;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
-    
   }
 .courseTable thead tr {
     background: #f12711;  /* fallback for old browsers */
@@ -29,6 +28,8 @@
 .courseTable th, 
 .courseTable td {
     padding: 12px 15px;
+    text-align: center;
+
 }
 .courseTable tbody tr {
     border-bottom: 1px solid #faf0ca;
@@ -67,6 +68,7 @@
     background-color:#faf0ca;
     background-size:contain;
     display: none;
+    margin-top: 15px;
 }
 
 Link{
@@ -184,10 +186,13 @@ Link{
 
 .term-select{
     width: 100px;
+    margin-left: 5px;
 }
 
 .course-select{
     width: 105px;
     margin-top:7px;
+    margin-left: 5px;
+
 }
 

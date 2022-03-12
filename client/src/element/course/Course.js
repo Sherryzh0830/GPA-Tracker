@@ -1,7 +1,7 @@
 import "./course.css";
 import React, { useState } from "react";
 import Axios from "axios";
-import "../InputPage.css";
+import "../edit/InputPage.css";
 import { Link } from "react-router-dom";
 import { FaEdit } from "react-icons/fa";
 import { IconContext } from "react-icons";
@@ -117,7 +117,7 @@ export default function Course() {
       gpa: 0,
     },
   ];
-  
+
   const convertLetter = (numGrade) => {
     for (var i = 1; i < scale.length; i++) {
       if (numGrade >= scale[i].min && numGrade <= scale[i].max) {
@@ -175,7 +175,7 @@ export default function Course() {
       <Grid lg={12} item container spacing={1}>
         <Grid item lg={3} sm={3} xs={3}>
           <div className="dropdown menu">
-            <label for="term-names">Choose a quarter:</label>
+            <label for="term-names">Choose a quarter: </label>
             <select
               name="term-names"
               id="term-names"
@@ -193,7 +193,7 @@ export default function Course() {
               })}
             </select>
             <br />
-            <label for="class-names">Choose a course:</label>
+            <label for="class-names">Choose a course: </label>
             <select
               name="class-names"
               id="class-names"
@@ -230,7 +230,56 @@ export default function Course() {
             >
               Add Course
             </button>
+            <div className="Add-Course">
+              <h5>Add More Courses Here!</h5>
+              <input
+                type="text"
+                onChange={(course) => setquarter(course.target.value)}
+                value={quarter}
+                placeholder="Quarter..."
+              />
+              <input
+                type="text"
+                onChange={(course) => setcourseName(course.target.value)}
+                value={courseName}
+                placeholder="Course name..."
+              />
+              <br />
+              <button
+                onClick={() => {
+                  AddCourse();
+                  document.getElementsByClassName(
+                    "Add-Course"
+                  )[0].style.display = "none";
+                }}
+                style={{ marginTop: "5px", marginRight: "5px" }}
+              >
+                Submit
+              </button>
+              <button
+                onClick={() => {
+                  document.getElementsByClassName(
+                    "Add-Course"
+                  )[0].style.display = "none";
+                }}
+              >
+                Cancel
+              </button>
+            </div>
           </div>
+          <ul className="editbutton">
+            <Link
+              to="/EditAllCourses"
+              style={{
+                textDecoration: "none",
+                fontSize: "1em",
+                color: "#0d3b66",
+              }}
+            >
+              <FaEdit />
+              Edit courses
+            </Link>
+          </ul>
         </Grid>
         <Grid item lg={9} sm={9} xs={9}>
           <div className="content">
@@ -259,112 +308,79 @@ export default function Course() {
                 <br />
               </>
             )}
-            <br />
 
-            <div className="Add-Course">
-              <h5>Add More Courses Here!</h5>
-              <input
-                type="text"
-                onChange={(course) => setquarter(course.target.value)}
-                value={quarter}
-                placeholder="Please enter quarter"
-              />
-              <input
-                type="text"
-                onChange={(course) => setcourseName(course.target.value)}
-                value={courseName}
-                placeholder="Please enter course name"
-              />
-
-              <button
-                onClick={() => {
-                  AddCourse();
-                  document.getElementsByClassName(
-                    "Add-Course"
-                  )[0].style.display = "none";
-                }}
-              >
-                Submit
-              </button>
-            </div>
-
-            {show && ( //course table
-              <>
-                <h3 className="courseName">{display}</h3>
-                <table className="courseTable">
-                  <thead>
-                    <tr>
-                      <th>Component</th>
-                      <th>Weight</th>
-                      <th>Grade</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {Class.map((val) => {
-                      return (
-                        <tr>
-                          <td>{val.component}</td>
-                          <td>{val.weight}%</td>
-                          <td>{val.grade}</td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-
-                <table className="courseTable">
+            <div>
+              <h3 className="courseName">{display}</h3>
+              <table className="courseTable">
+                <thead>
                   <tr>
-                    <td />
-                    <td>Final Grade</td>
-                    <td>
-                      <button
-                        onClick={() => {
-                          CalculateGrade();
-                        }}
-                        className="calculate"
-                      >
-                        Calculate
-                      </button>
-                      <button
-                        onClick={() => {
-                          convertLetter(finalgrade);
-                        }}
-                        className="calculate"
-                      >
-                        Letter Grade
-                      </button>
-                    </td>
-                    <td>
-                      {finalgrade} {""} {""}
-                      {lettergrade}
-                    </td>
+                    <th>Component</th>
+                    <th>Weight</th>
+                    <th>Grade</th>
                   </tr>
-                </table>
+                </thead>
+                <tbody>
+                  {Class.map((val) => {
+                    return (
+                      <tr>
+                        <td>{val.component}</td>
+                        <td>{val.weight}%</td>
+                        <td>{val.grade}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
 
-                <IconContext.Provider value={{ color: "#0d3b66", size: "1em" }}>
-                  <ul className="editbutton">
-                    <Link
-                      to="/InputPage"
-                      style={{
-                        textDecoration: "none",
-                        fontSize: "1em",
-                        color: "#0d3b66",
+              <table className="courseTable">
+                <tr>
+                  <td>Final Grade</td>
+                  <td>
+                    <button
+                      onClick={() => {
+                        CalculateGrade();
                       }}
+                      className="calculate"
                     >
-                      <FaEdit />
-                      Edit courses
-                    </Link>
-                  </ul>
-                </IconContext.Provider>
-                <hr />
-              </>
-            )}
-                <GradeConversion />
+                      Calculate
+                    </button>
+                    <button
+                      onClick={() => {
+                        convertLetter(finalgrade);
+                      }}
+                      className="calculate"
+                    >
+                      Letter Grade
+                    </button>
+                  </td>
+                  <td>
+                    {finalgrade} {""} {""}
+                    {lettergrade}
+                  </td>
+                </tr>
+              </table>
 
+              <IconContext.Provider value={{ color: "#0d3b66", size: "1em" }}>
+                <ul className="editbutton">
+                  <Link
+                    to="/InputPage"
+                    style={{
+                      textDecoration: "none",
+                      fontSize: "1em",
+                      color: "#0d3b66",
+                    }}
+                  >
+                    <FaEdit />
+                    Edit components
+                  </Link>
+                </ul>
+              </IconContext.Provider>
+              <hr />
+            </div>
+            <GradeConversion />
           </div>
         </Grid>
       </Grid>
-
     </div>
   );
 }
