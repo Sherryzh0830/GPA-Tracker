@@ -20,7 +20,6 @@ button:hover{
 }
 
 .App-header {
-  background-color: #274c6e;
   min-height: 50vh;
   display: flex;
   flex-direction: column;

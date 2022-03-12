@@ -91,7 +91,7 @@ app.get("/getCourse", (req, res) => {
     } else {
       res.send(result);
     }
-  }).sort({_id:1});
+  }).sort({quarter:1});
 });
 
 

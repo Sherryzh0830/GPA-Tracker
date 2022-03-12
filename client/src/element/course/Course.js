@@ -171,11 +171,12 @@ export default function Course() {
   };
 
   return (
-    <div className="whole-page">
+    <div className="whole-page" style={{ marginTop: "10px" }}>
       <Grid lg={12} item container spacing={1}>
         <Grid item lg={3} sm={3} xs={3}>
           <div className="dropdown menu">
             <label for="term-names">Choose a quarter: </label>
+            <br />
             <select
               name="term-names"
               id="term-names"
@@ -194,6 +195,7 @@ export default function Course() {
             </select>
             <br />
             <label for="class-names">Choose a course: </label>
+            <br />
             <select
               name="class-names"
               id="class-names"
@@ -214,7 +216,7 @@ export default function Course() {
                 return <option value={val.courseName}>{val.courseName}</option>;
               })}
             </select>
-
+            <br />
             <button
               onClick={() => {
                 document.getElementsByClassName("Add-Course")[0].style.display =
@@ -226,6 +228,7 @@ export default function Course() {
                 padding: "0.4rem",
                 color: "#0d3b66",
                 marginTop: "10px",
+                borderRadius: "5px 5px",
               }}
             >
               Add Course
@@ -283,8 +286,8 @@ export default function Course() {
         </Grid>
         <Grid item lg={9} sm={9} xs={9}>
           <div className="content">
-            <h6>{selectedQuarter}</h6>
-            <h4> {selectedCourse}</h4>
+            <h5>{selectedQuarter}</h5>
+            <h2> {selectedCourse}</h2>
 
             {show && ( //get class detail
               <>
@@ -300,6 +303,7 @@ export default function Course() {
                     borderColor: "#faf0ca",
                     padding: "0.4rem",
                     color: "#0d3b66",
+                    borderRadius: "5px 5px",
                   }}
                 >
                   Get Class Detail

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import "./InputPage.css";
-import { FaSearch, FaPlus } from "react-icons/fa";
 
 export default function InputPage() {
   const [ListofEvent, setListofEvent] = useState([]);
@@ -84,7 +83,7 @@ export default function InputPage() {
             Back
           </Link>
         </button>
-        <h1 style={{ marginTop: "20px" }}>Edit Mode</h1>
+        <h1 style={{ marginTop: "20px" }}>Edit Mode - Components</h1>
       </div>
 
       <div>
@@ -182,7 +181,7 @@ export default function InputPage() {
             background: "#ee964b",
           }}
         >
-          <FaPlus />
+          <b>+</b>
         </button>
         {show && (
           <>

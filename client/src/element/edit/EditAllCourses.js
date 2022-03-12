@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
-import "./InputPage.css";
+import "./EditAllCourses.css";
 
 export default function EditAllCourses() {
   const [ListofCourse, setListofCourse] = useState([]);
@@ -73,7 +73,7 @@ export default function EditAllCourses() {
             Back
           </Link>
         </button>
-        <h1 style={{ marginTop: "20px" }}>Edit Mode</h1>
+        <h1 style={{ marginTop: "20px" }}>Edit Mode - Courses</h1>
       </div>
 
       <div>
