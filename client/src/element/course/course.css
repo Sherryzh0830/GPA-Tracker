@@ -1,3 +1,7 @@
+.whole-page{
+    padding-left: 20px;
+}
+
 .courseTable {
     border-collapse: collapse;
     margin-left: auto;
@@ -186,3 +190,4 @@ Link{
     width: 105px;
     margin-top:7px;
 }
+

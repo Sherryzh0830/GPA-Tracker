@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { FaEdit } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import GradeConversion from "./GradeConversion";
+import { Grid } from "@material-ui/core";
 
 export default function Course() {
   const [ListofCourse, setListofCourse] = useState([]);
@@ -14,17 +15,13 @@ export default function Course() {
   const [display, setDisplay] = useState("");
   const [show, setShow] = useState(false);
   const [courseName, setcourseName] = useState("");
-  const [component, setComponent] = useState("");
-  const [weight, setWeight] = useState("");
-  const [grade, setGrade] = useState("");
   const [quarter, setquarter] = useState("");
   const [finalgrade, setFinalgrade] = useState("");
   const selectedClass = display;
   const distinctQuarter = [...new Set(ListofCourse.map((x) => x.quarter))];
-  
+
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedQuarter, setSelectedQuarter] = useState("");
-
 
   const [lettergrade, setLettergrade] = useState("");
   const scale = [
@@ -120,6 +117,7 @@ export default function Course() {
       gpa: 0,
     },
   ];
+  
   const convertLetter = (numGrade) => {
     for (var i = 1; i < scale.length; i++) {
       if (numGrade >= scale[i].min && numGrade <= scale[i].max) {
@@ -172,133 +170,135 @@ export default function Course() {
     );
   };
 
-
   return (
-    <div>
-      <div className="dropdown menu">
-          <label for="term-names">Choose a quarter:</label>
-          <select
-            name="term-names"
-            id="term-names"
-            onChange={(event) => {
-              setSelectedQuarter(event.currentTarget.value);
-              GetQuarterObject(event.target.value);
-              setFinalgrade("");
-              setLettergrade("");
+    <div className="whole-page">
+      <Grid lg={12} item container spacing={1}>
+        <Grid item lg={3} sm={3} xs={3}>
+          <div className="dropdown menu">
+            <label for="term-names">Choose a quarter:</label>
+            <select
+              name="term-names"
+              id="term-names"
+              onChange={(event) => {
+                setSelectedQuarter(event.currentTarget.value);
+                GetQuarterObject(event.target.value);
+                setFinalgrade("");
+                setLettergrade("");
               }}
-            placeholder="Term"
-            className="term-select"
-          >
-            {distinctQuarter.map((val) => {
-              return <option value={val}>{val}</option>;
-            })}
-          </select>
-          <br/>
-          
-          <label for="class-names">Choose a course:</label>
-          <select
-            name="class-names"
-            id="class-names"
-            onClick={(event) => {
-              setSelectedCourse(event.currentTarget.value);
-              if (!show) {
-                setShow(!show);
-              }
-              setFinalgrade("");
-              setLettergrade("");
+              placeholder="Term"
+              className="term-select"
+            >
+              {distinctQuarter.map((val) => {
+                return <option value={val}>{val}</option>;
+              })}
+            </select>
+            <br />
+            <label for="class-names">Choose a course:</label>
+            <select
+              name="class-names"
+              id="class-names"
+              onClick={(event) => {
+                setSelectedCourse(event.currentTarget.value);
+                if (!show) {
+                  setShow(!show);
+                }
+                setFinalgrade("");
+                setLettergrade("");
               }}
-            onChange={(event)=>{
-              setSelectedCourse(event.currentTarget.value)
-            }}
-            className="course-select"
-          >
-            {Quarter.map((val) => {
-              return <option value={val.courseName}>{val.courseName}</option>;
-            })}
-          </select>
-      </div>
+              onChange={(event) => {
+                setSelectedCourse(event.currentTarget.value);
+              }}
+              className="course-select"
+            >
+              {Quarter.map((val) => {
+                return <option value={val.courseName}>{val.courseName}</option>;
+              })}
+            </select>
 
-      <button
-            onClick={() => {
-              document.getElementsByClassName("Add-Course")[0].style.display =
-                "block";
-            }}
-            style={{
-              backgroundColor: "#f4d35e",
-              borderColor: "#faf0ca",
-              padding: "0.4rem",
-              color: "#0d3b66",
-              marginTop:"10px"
-            }}
-          >
-            Add Course
-          </button>
-      
+            <button
+              onClick={() => {
+                document.getElementsByClassName("Add-Course")[0].style.display =
+                  "block";
+              }}
+              style={{
+                backgroundColor: "#f4d35e",
+                borderColor: "#faf0ca",
+                padding: "0.4rem",
+                color: "#0d3b66",
+                marginTop: "10px",
+              }}
+            >
+              Add Course
+            </button>
+          </div>
+        </Grid>
+        <Grid item lg={9} sm={9} xs={9}>
+          <div className="content">
+            <h6>{selectedQuarter}</h6>
+            <h4> {selectedCourse}</h4>
 
-      <hr />
-      <h6>{selectedQuarter}</h6>
-      <h4> {selectedCourse}</h4>
-      
-      {show && (
-        <>
-          <button
-            onClick={() => {
-              GetClassEvent(selectedCourse);
-              document.getElementsByClassName("edit-button")[0].style.display =
-                "block";
-            }}
-            style={{
-              backgroundColor: "#f4d35e",
-              borderColor: "#faf0ca",
-              padding: "0.4rem",
-              color: "#0d3b66",
-            }}
-          >
-            Get Class Detail
-          </button>
-          
-          <br />
-        </>
-      )}
-      <br />
+            {show && ( //get class detail
+              <>
+                <button
+                  onClick={() => {
+                    GetClassEvent(selectedCourse);
+                    document.getElementsByClassName(
+                      "edit-button"
+                    )[0].style.display = "block";
+                  }}
+                  style={{
+                    backgroundColor: "#f4d35e",
+                    borderColor: "#faf0ca",
+                    padding: "0.4rem",
+                    color: "#0d3b66",
+                  }}
+                >
+                  Get Class Detail
+                </button>
 
-      <div className="Add-Course">
-        <h5>Add More Courses Here!</h5>
-        <input
-          type="text"
-          onChange={(course) => setquarter(course.target.value)}
-          value={quarter}
-          placeholder="Please enter quarter"
-        />
-        <input
-          type="text"
-          onChange={(course) => setcourseName(course.target.value)}
-          value={courseName}
-          placeholder="Please enter course name"
-        />
+                <br />
+              </>
+            )}
+            <br />
 
-        <button
-          onClick={() => {
-            AddCourse();
-            document.getElementsByClassName("Add-Course")[0].style.display =
-              "none";
-          }}
-        >
-          Submit
-        </button>
-      </div>
+            <div className="Add-Course">
+              <h5>Add More Courses Here!</h5>
+              <input
+                type="text"
+                onChange={(course) => setquarter(course.target.value)}
+                value={quarter}
+                placeholder="Please enter quarter"
+              />
+              <input
+                type="text"
+                onChange={(course) => setcourseName(course.target.value)}
+                value={courseName}
+                placeholder="Please enter course name"
+              />
 
-      {show && (
-        <>
-          <h3 className="courseName">{display}</h3>
-            <table className="courseTable">
-              <thead>
-                <tr>
-                  <th>Component</th>
-                  <th>Weight</th>
-                  <th>Grade</th>
-                </tr>
-              </thead>
+              <button
+                onClick={() => {
+                  AddCourse();
+                  document.getElementsByClassName(
+                    "Add-Course"
+                  )[0].style.display = "none";
+                }}
+              >
+                Submit
+              </button>
+            </div>
+
+            {show && ( //course table
+              <>
+                <h3 className="courseName">{display}</h3>
+                <table className="courseTable">
+                  <thead>
+                    <tr>
+                      <th>Component</th>
+                      <th>Weight</th>
+                      <th>Grade</th>
+                    </tr>
+                  </thead>
                   <tbody>
                     {Class.map((val) => {
                       return (
@@ -307,62 +307,63 @@ export default function Course() {
                           <td>{val.weight}%</td>
                           <td>{val.grade}</td>
                         </tr>
-                      )
+                      );
                     })}
                   </tbody>
-            </table>
+                </table>
 
-          <table className="courseTable">
-            <tr>
-              <td />
-              <td>Final Grade</td>
-              <td>
-                <button
-                  onClick={() => {
-                    CalculateGrade();
-                  }}
-                  className="calculate"
-                >
-                  Calculate
-                </button>
-                <button
-                  onClick={() => {
-                    convertLetter(finalgrade);
-                  }}
-                  className="calculate"
-                >
-                  Letter Grade
-                </button>
-              </td>
-              <td>
-                {finalgrade} {""} {""}
-                {lettergrade}
-              </td>
-            </tr>
-          </table>
-          
-          <IconContext.Provider value={{ color: "#0d3b66", size: "1em" }}>
-            <ul className="editbutton">
-              <Link
-                to="/InputPage"
-                style={{
-                  textDecoration: "none",
-                  fontSize: "1em",
-                  color: "#0d3b66",
-                }}
-              >
-                <FaEdit />
-                Edit courses
-              </Link>
-            </ul>
-          </IconContext.Provider>
-          <hr />
-        </>
-      )}
+                <table className="courseTable">
+                  <tr>
+                    <td />
+                    <td>Final Grade</td>
+                    <td>
+                      <button
+                        onClick={() => {
+                          CalculateGrade();
+                        }}
+                        className="calculate"
+                      >
+                        Calculate
+                      </button>
+                      <button
+                        onClick={() => {
+                          convertLetter(finalgrade);
+                        }}
+                        className="calculate"
+                      >
+                        Letter Grade
+                      </button>
+                    </td>
+                    <td>
+                      {finalgrade} {""} {""}
+                      {lettergrade}
+                    </td>
+                  </tr>
+                </table>
 
-      <GradeConversion />
+                <IconContext.Provider value={{ color: "#0d3b66", size: "1em" }}>
+                  <ul className="editbutton">
+                    <Link
+                      to="/InputPage"
+                      style={{
+                        textDecoration: "none",
+                        fontSize: "1em",
+                        color: "#0d3b66",
+                      }}
+                    >
+                      <FaEdit />
+                      Edit courses
+                    </Link>
+                  </ul>
+                </IconContext.Provider>
+                <hr />
+              </>
+            )}
+                <GradeConversion />
 
-
+          </div>
+        </Grid>
+      </Grid>
 
     </div>
   );
