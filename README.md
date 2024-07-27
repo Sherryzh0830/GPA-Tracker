@@ -3,6 +3,8 @@
 
 ## Overview
 
+<img width="926" alt="Screenshot 2024-07-26 at 9 59 23 PM" src="https://github.com/user-attachments/assets/065a4391-0cff-4c16-8069-33ef251989cc">
+
 GPA Tracker is a web application designed to help university students monitor and manage their academic progress. By inputting course names, semesters, grade distributions, and individual grades for exams, assignments, and quizzes, students can visualize their GPA in real time and plan their studies more effectively.
 
 ## Why GPA Tracker?
